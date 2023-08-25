@@ -66,18 +66,19 @@ int main(char** argv, int argc)
 		std::exit(-1);
 	}
 
-	// Define 2 triangles.
+	// Define 2 triangles. 
+	// The order of the vertices must be counter-clockwise so that the face is visible.
 	float vertices[] =
 	{
-		// Left triangle.
-		-0.5f,  0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
+		// Top left triangle.
+		-0.5f,  0.0f, 0.0f,
 		 0.0f,  0.5f, 0.0f,
+		 0.0f,  0.0f, 0.0f,
 
-		 // Right triangle.
-		  0.5f,  0.5f, 0.0f,
-		  0.0f, -1.0f, 0.0f,
-		 0.25f, 0.25f, 0.0f
+		 // Bottom right triangle.
+		 0.0f, -0.5f, 0.0f,
+		 0.0f,  0.0f, 0.0f,
+		 0.5f,  0.0f, 0.0f
 	};
 
 	// Create a vertex array object.
