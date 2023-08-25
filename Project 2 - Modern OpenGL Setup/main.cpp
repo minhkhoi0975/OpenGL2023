@@ -38,31 +38,6 @@ int main(char** argv, int argc)
 		std::exit(-1);
 	}
 
-	// Define a triangle.
-	float vertices[] =
-	{
-	   -0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.0f,  0.5f, 0.0f
-	};
-
-	// Create a vertex array object.
-	unsigned int vao;
-	glGenVertexArrays(1, &vao);
-
-	// Use this vao.
-	glBindVertexArray(vao);
-
-	// Create a vertex buffer object.
-	unsigned int vbo;
-	glGenBuffers(1, &vbo);
-
-	// By the created vbo to the array buffer.
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-	// Set the data of the array buffer.
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
 	// Loop until the user closes the window.
 	while (!glfwWindowShouldClose(window))
 	{
