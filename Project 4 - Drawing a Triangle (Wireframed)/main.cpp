@@ -120,6 +120,10 @@ int main(char** argv, int argc)
 		std::cout << "Error: Cannot create a shader program:\n" << infoLog << std::endl;
 	}
 
+	// Delete the shaders.
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
 	// Use the shader program for rendering.
 	glUseProgram(shaderProgram);
 
