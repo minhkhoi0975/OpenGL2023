@@ -96,7 +96,7 @@ int main(char** argv, int argc)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
 
 	// Create a shader program.
-	Shader shader("Shaders/triangle.vs", "Shaders/triangle.fs");
+	Shader shader("Shaders/chessboard.vs", "Shaders/chessboard.fs");
 	shader.Use();
 
 	// Loop until the user closes the window.
