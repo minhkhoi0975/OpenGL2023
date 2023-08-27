@@ -28,7 +28,7 @@ int main(char** argv, int argc)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create a window.
-	window = glfwCreateWindow(640, 480, "Hello World!", nullptr, nullptr);
+	window = glfwCreateWindow(1080, 1080, "Hello World!", nullptr, nullptr);
 	if (!window)
 	{
 		std::cout << "Error: Cannot create a window." << std::endl;
