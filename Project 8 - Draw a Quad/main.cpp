@@ -9,6 +9,8 @@ void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 // Called when there is an action from the keyboard.
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
+bool wireFrameMode = false;
+
 int main(char** argv, int argc)
 {
 	GLFWwindow* window = nullptr;
@@ -49,19 +51,21 @@ int main(char** argv, int argc)
 		std::exit(-1);
 	}
 
-	// Define 2 triangles. 
-	// The order of the vertices must be counter-clockwise so that the face is visible.
+	// Define the vertices of the quad.
 	float vertices[] =
 	{
-		// Top left triangle.
-		-0.5f,  0.0f, 0.0f,
-		 0.0f,  0.5f, 0.0f,
-		 0.0f,  0.0f, 0.0f,
+		 // Positions       // UV coordinates  
+		-0.5f,  0.5f, 0.0f,	0.0f, 1.0f,	       // Top left
+		-0.5f, -0.5f, 0.0f,	0.0f, 0.0f,	       // Bottom left
+		 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,		   // Top right
+		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f		   // Bottom right
+	};
 
-		 // Bottom right triangle.
-		 0.0f, -0.5f, 0.0f,
-		 0.0f,  0.0f, 0.0f,
-		 0.5f,  0.0f, 0.0f
+	// Define the indicies of the triangles.
+	unsigned int indicies[] =
+	{
+		2, 0, 1, // Top left
+		3, 2, 1  // Bottom right
 	};
 
 	// Create a vertex array object.
@@ -75,11 +79,21 @@ int main(char** argv, int argc)
 	unsigned int vbo;
 	glGenBuffers(1, &vbo);
 
-	// By the created vbo to the array buffer.
+	// Bind the created vbo to the array buffer.
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
 	// Set the data of the array buffer.
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	// Create an element array buffer object.
+	unsigned int ebo;
+	glGenBuffers(1, &ebo);
+
+	// Bind the created ebo to the element array buffer.
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+
+	// Set the data of the index buffer.
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
 
 	// Create a shader program.
 	Shader shader("Shaders/triangle.vs", "Shaders/triangle.fs");
@@ -92,9 +106,15 @@ int main(char** argv, int argc)
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		// Set the positions.
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+
+		// Set the UV coordinates.
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3*sizeof(float)));
+		glEnableVertexAttribArray(1);
+
+		glDrawElements(GL_TRIANGLES, sizeof(indicies) / sizeof(unsigned int), GL_UNSIGNED_INT, (void*)0);
 
 		// Swap front and back buffers.
 		glfwSwapBuffers(window);
@@ -115,6 +135,17 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 {
 	if (action == GLFW_PRESS)
 	{
+		// Toggle/untoggle wireframe mode.
+		if (key == GLFW_KEY_W)
+		{
+			if (!wireFrameMode)
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			else
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+			wireFrameMode = !wireFrameMode;
+		}
+
 		if (key == GLFW_KEY_ESCAPE)
 			glfwSetWindowShouldClose(window, true);
 	}

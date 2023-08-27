@@ -8,7 +8,7 @@
 /// <param name="window">The window whose size is changed.</param>
 /// <param name="width">The new width of the window.</param>
 /// <param name="height">The new height of the window.</param>
-void OnWindowSizeChanged(GLFWwindow* window, int width, int height);
+void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
 int main(char** argv, int argc)
 {
@@ -65,7 +65,7 @@ int main(char** argv, int argc)
 	glfwMakeContextCurrent(window);
 
 	// Bind functions to events.
-	glfwSetFramebufferSizeCallback(window, OnWindowSizeChanged);
+	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
 
 	// Initialize GLAD.
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -214,7 +214,7 @@ int main(char** argv, int argc)
 	glfwTerminate();
 }
 
-void OnWindowSizeChanged(GLFWwindow* window, int width, int height)
+void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
