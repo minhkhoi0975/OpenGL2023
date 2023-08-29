@@ -10,6 +10,7 @@ private:
 	unsigned int vbo;
 	unsigned int ebo;
 	Shader shader;
+	glm::vec4 baseColor;
 
 	// Define the vertices of the quad.
 	float vertices[20] =

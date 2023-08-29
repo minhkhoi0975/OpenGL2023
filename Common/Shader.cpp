@@ -102,3 +102,8 @@ void Shader::Use() const
 {
 	glUseProgram(id);
 }
+
+void Shader::SetUniformVector4(const char* name, const glm::vec4& value)
+{
+	glUniform4fv(glGetUniformLocation(id, name), 1, &value[0]);
+}

@@ -1,4 +1,5 @@
 #pragma once
+#include <glm/glm.hpp>
 
 class Shader
 {
@@ -18,4 +19,6 @@ public:
 	/// Makes OpenGL uses this shader program.
 	/// </summary>
 	void Use() const;
+
+	void SetUniformVector4(const char* name, const glm::vec4& value);
 };
