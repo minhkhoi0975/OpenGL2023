@@ -24,7 +24,7 @@
     <ProjectGuid>{70F923A4-C0D8-4002-94B1-DDC82BC2F39E}</ProjectGuid>
     <RootNamespace>OpenGL2023</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Project4 - Drawing a Triangle (Wireframed)</ProjectName>
+    <ProjectName>Project04 - Drawing a Triangle (Wireframed)</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

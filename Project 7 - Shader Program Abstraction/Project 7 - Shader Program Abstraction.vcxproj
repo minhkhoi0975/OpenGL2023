@@ -24,7 +24,7 @@
     <ProjectGuid>{F3E00015-6D4F-4FEA-92AB-D77430ABD944}</ProjectGuid>
     <RootNamespace>OpenGL2023</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Project7 - Shader Program Abstraction</ProjectName>
+    <ProjectName>Project07 - Shader Program Abstraction</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
