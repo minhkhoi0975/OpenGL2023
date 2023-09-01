@@ -143,16 +143,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\Application.cpp" />
+    <ClCompile Include="..\Common\ElementBuffer.cpp" />
     <ClCompile Include="..\Common\Shader.cpp" />
     <ClCompile Include="..\Common\Texture.cpp" />
+    <ClCompile Include="..\Common\VertexArray.cpp" />
+    <ClCompile Include="..\Common\VertexBuffer.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProjectApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\Application.hpp" />
+    <ClInclude Include="..\Common\ElementBuffer.hpp" />
     <ClInclude Include="..\Common\Shader.hpp" />
     <ClInclude Include="..\Common\Texture.hpp" />
+    <ClInclude Include="..\Common\VertexArray.hpp" />
+    <ClInclude Include="..\Common\VertexBuffer.hpp" />
     <ClInclude Include="ProjectApplication.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

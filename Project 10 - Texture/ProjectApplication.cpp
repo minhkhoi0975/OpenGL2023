@@ -1,27 +1,17 @@
 #include "ProjectApplication.hpp"
 #include <glad/glad.h>
 
-ProjectApplication::ProjectApplication(const char* title, int windowWidth, int windowHeight) : 
-	Application(title, windowWidth, windowHeight), 
+ProjectApplication::ProjectApplication(const char* title, int windowWidth, int windowHeight) :
+	Application(title, windowWidth, windowHeight),
+	vertexArray(),
 	texture("textures/sample2.png"),
 	shader("Shaders/texture_shader.vs", "Shaders/texture_shader.fs"),
-	baseColor(0.5f, 0.5f, 0.1f, 1.0f)
+	baseColor(0.5f, 0.8f, 0.0f, 1.0f)
 {
-	// Create a vertex array object.
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	vertexArray.Use();
+	vertexBuffer.SetData(vertices, sizeof(vertices));
+	elementBuffer.SetData(indicies, sizeof(indicies));
 
-	// Create a vertex buffer object.
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	// Create an element array buffer object.
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
-
-	// Use the created shader program.
 	shader.Use();
 }
 

@@ -9,6 +9,7 @@ private:
 public:
 
 	Shader(const char* vertexShaderFilePath, const char* fragmentShaderFilePath);
+	~Shader();
 
 	/// <summary>
 	/// Returns the ID of the shader.

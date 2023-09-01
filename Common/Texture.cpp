@@ -35,6 +35,7 @@ Texture::Texture(const char* fileName)
 
 Texture::~Texture()
 {
+	glDeleteTextures(1, &id);
 	stbi_image_free(data);
 }
 

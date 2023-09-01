@@ -1,5 +1,8 @@
 #pragma once
 #include "../Common/Application.hpp"
+#include "../Common/VertexArray.hpp"
+#include "../Common/VertexBuffer.hpp"
+#include "../Common/ElementBuffer.hpp"
 #include "../Common/Shader.hpp"
 #include "../Common/Texture.hpp"
 
@@ -7,9 +10,9 @@
 class ProjectApplication : public Application
 {
 private:
-	unsigned int vao;
-	unsigned int vbo;
-	unsigned int ebo;
+	VertexArray vertexArray;
+	VertexBuffer vertexBuffer;
+	ElementBuffer elementBuffer;
 	Texture texture;
 	Shader shader;
 	glm::vec4 baseColor;

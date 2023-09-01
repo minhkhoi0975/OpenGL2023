@@ -93,6 +93,11 @@ Shader::Shader(const char* vertexShaderFilePath, const char* fragmentShaderFileP
 	glDeleteShader(fragmentShader);
 }
 
+Shader::~Shader()
+{
+	glDeleteProgram(id);
+}
+
 unsigned int Shader::GetId() const
 {
 	return id;

@@ -19,6 +19,15 @@
     <ClCompile Include="..\Common\Texture.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Common\VertexArray.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\VertexBuffer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ElementBuffer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\Application.hpp">
@@ -31,6 +40,15 @@
       <Filter>Project</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\Texture.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\VertexArray.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\VertexBuffer.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ElementBuffer.hpp">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
