@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader(const char* vertexShaderFilePath, const char* fragmentShaderFilePath)
 {
@@ -111,4 +112,9 @@ void Shader::Use() const
 void Shader::SetUniformVector4(const char* name, const glm::vec4& value)
 {
 	glUniform4fv(glGetUniformLocation(id, name), 1, &value[0]);
+}
+
+void Shader::SetUniformMatrix4(const char* name, const glm::mat4& value)
+{
+	glUniformMatrix4fv(glGetUniformLocation(id, name), 1, GL_FALSE, glm::value_ptr(value));
 }

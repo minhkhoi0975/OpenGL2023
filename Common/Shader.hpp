@@ -22,4 +22,5 @@ public:
 	void Use() const;
 
 	void SetUniformVector4(const char* name, const glm::vec4& value);
+	void SetUniformMatrix4(const char* name, const glm::mat4& value);
 };

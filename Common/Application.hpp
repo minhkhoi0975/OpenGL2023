@@ -31,6 +31,10 @@ public:
 	virtual void OnShutdown();
 
 public:
+	inline float GetLatestFrameTime() { return latestFrameTime; };
+	inline float GetDeltaTime() { return deltaTime; }
+
+public:
 	// Events.
 	virtual void OnWindowResized(int newWidth, int newHeight);
 

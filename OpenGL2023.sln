@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project09 - Application Abs
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project10 - Texture", "Project 10 - Texture\Project 10 - Texture.vcxproj", "{19FB2E6A-6688-4A38-9FAF-A8A088966B43}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project11 - Model View Projection Matrices", "Project 11 - Model View Projection Matrices\Project 11 - Model View Projection Matrices.vcxproj", "{203AAFB2-744A-417D-9F76-5DC46D454826}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -111,6 +113,14 @@ Global
 		{19FB2E6A-6688-4A38-9FAF-A8A088966B43}.Release|x64.Build.0 = Release|x64
 		{19FB2E6A-6688-4A38-9FAF-A8A088966B43}.Release|x86.ActiveCfg = Release|Win32
 		{19FB2E6A-6688-4A38-9FAF-A8A088966B43}.Release|x86.Build.0 = Release|Win32
+		{203AAFB2-744A-417D-9F76-5DC46D454826}.Debug|x64.ActiveCfg = Debug|x64
+		{203AAFB2-744A-417D-9F76-5DC46D454826}.Debug|x64.Build.0 = Debug|x64
+		{203AAFB2-744A-417D-9F76-5DC46D454826}.Debug|x86.ActiveCfg = Debug|Win32
+		{203AAFB2-744A-417D-9F76-5DC46D454826}.Debug|x86.Build.0 = Debug|Win32
+		{203AAFB2-744A-417D-9F76-5DC46D454826}.Release|x64.ActiveCfg = Release|x64
+		{203AAFB2-744A-417D-9F76-5DC46D454826}.Release|x64.Build.0 = Release|x64
+		{203AAFB2-744A-417D-9F76-5DC46D454826}.Release|x86.ActiveCfg = Release|Win32
+		{203AAFB2-744A-417D-9F76-5DC46D454826}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
