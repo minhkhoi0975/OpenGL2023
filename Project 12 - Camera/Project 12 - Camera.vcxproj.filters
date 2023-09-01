@@ -28,6 +28,9 @@
     <ClCompile Include="..\Common\ElementBuffer.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Common\Camera.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\Application.hpp">
@@ -49,6 +52,9 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\ElementBuffer.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Camera.hpp">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
