@@ -4,7 +4,7 @@
 #include "ProjectApplication.hpp"
 #include "../Common/Shader.hpp"
 
-int main(char** argv, int argc)
+int main(int argc, char* argv[])
 {
     ProjectApplication application("Hello World!", 1080, 1080);
     application.RunLoop();
