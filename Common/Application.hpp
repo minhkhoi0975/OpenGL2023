@@ -18,6 +18,12 @@ private:
 	/// </summary>
 	float deltaTime = 0.0f;
 
+private:
+	float cursorX;
+	float cursorY;
+	float cursorDeltaX;
+	float cursorDeltaY;
+
 public:
 	Application(const char* title, int windowWidth, int windowHeight);
 	~Application();
@@ -26,13 +32,27 @@ public:
 	virtual void OnUpdate();
 
 	/// <summary>
+	/// Tells GLFW to close the window.
+	/// </summary>
+	void CloseWindow();
+
+	/// <summary>
 	/// Called before GLFW is terminated.
 	/// </summary>
 	virtual void OnShutdown();
 
 public:
-	inline float GetLatestFrameTime() { return latestFrameTime; };
-	inline float GetDeltaTime() { return deltaTime; }
+	inline float GetLatestFrameTime() const { return latestFrameTime; };
+	inline float GetDeltaTime() const { return deltaTime; }
+
+public:
+	inline float GetCursorX() const { return cursorX; }
+	inline float GetCursorY() const { return cursorY; }
+	void GetCursor(float& cursorX, float& cursorY) const;
+
+	inline float GetCursorDeltaX() const { return cursorDeltaX; }
+	inline float GetCursorDeltaY() const { return cursorDeltaY; }
+	void GetCursorDelta(float& deltaX, float& deltaY) const;
 
 public:
 	// Events.
@@ -44,4 +64,5 @@ public:
 
 	virtual void OnMousePressed(int button);
 	virtual void OnMouseReleased(int button);
+	virtual void OnCursorMove(double newPositionX, double newPositionY);
 };

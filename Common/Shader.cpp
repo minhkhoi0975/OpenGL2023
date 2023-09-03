@@ -60,7 +60,7 @@ Shader::Shader(const char* vertexShaderFilePath, const char* fragmentShaderFileP
 	if (!success)
 	{
 		glGetShaderInfoLog(vertexShader, sizeof(infoLog), nullptr, infoLog);
-		std::cout << "Cannot compile the vertex shader: " << infoLog << std::endl;
+		std::cout << "Cannot compile the vertex shader: " << std::endl << infoLog << std::endl;
 	}
 
 	// Compile the fragment shader.
@@ -72,7 +72,7 @@ Shader::Shader(const char* vertexShaderFilePath, const char* fragmentShaderFileP
 	if (!success)
 	{
 		glGetShaderInfoLog(fragmentShader, sizeof(infoLog), nullptr, infoLog);
-		std::cout << "Cannot compile the fragment shader: " << infoLog << std::endl;
+		std::cout << "Cannot compile the fragment shader: " << std::endl << infoLog << std::endl;
 	}
 
 

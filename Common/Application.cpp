@@ -65,6 +65,12 @@ Application::Application(const char* title, int windowWidth, int windowHeight)
 		}
 	});
 
+	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double newMouseX, double newMouseY)
+	{
+		Application* application = (Application*)glfwGetWindowUserPointer(window);
+		application->OnCursorMove(newMouseX, newMouseY);
+	});
+
 	// Initialize GLAD.
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -96,6 +102,14 @@ void Application::RunLoop()
 		deltaTime = time - latestFrameTime;
 		latestFrameTime = time;
 
+		// Update the cursor's position and delta position.
+		double newCursorX, newCursorY;
+		glfwGetCursorPos(window, &newCursorX, &newCursorY);
+		cursorDeltaX = newCursorX - cursorX;
+		cursorDeltaY = newCursorY - cursorY;
+		cursorX = newCursorX;
+		cursorY = newCursorY;
+
 		OnUpdate();
 
 		// Swap front and back buffers.
@@ -110,35 +124,50 @@ void Application::OnUpdate()
 {
 }
 
+void Application::CloseWindow()
+{
+	glfwSetWindowShouldClose(window, true);
+}
+
+void Application::GetCursor(float& cursorX, float& cursorY) const
+{
+	cursorX = this->cursorX;
+	cursorY = this->cursorY;
+}
+
+void Application::GetCursorDelta(float& deltaX, float& deltaY) const
+{
+	deltaX = cursorDeltaX;
+	deltaY = cursorDeltaY;
+}
+
 void Application::OnWindowResized(int newWidth, int newHeight)
 {
 	glViewport(0, 0, newWidth, newHeight);
-	std::cout << "Window resized." << std::endl;
 }
 
 void Application::OnKeyPressed(int key)
 {
 	if (key == GLFW_KEY_ESCAPE)
 		glfwSetWindowShouldClose(window, true);
-	std::cout << "Key pressed." << std::endl;
 }
 
 void Application::OnKeyReleased(int key)
 {
-	std::cout << "Key released." << std::endl;
 }
 
 void Application::OnKeyHeld(int key)
 {
-	std::cout << "Key held." << std::endl;
 }
 
 void Application::OnMousePressed(int button)
 {
-	std::cout << "Mouse pressed." << std::endl;
 }
 
 void Application::OnMouseReleased(int button)
 {
-	std::cout << "Mouse released." << std::endl;
+}
+
+void Application::OnCursorMove(double newMouseX, double newMouseY)
+{
 }
