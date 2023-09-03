@@ -67,10 +67,16 @@ void ProjectApplication::UpdateCameraTransform()
 	if (shouldRotateCamera)
 	{
 		float cameraRotateSpeed = 1.0f;
-		glm::vec3 cameraEulerAngles = glm::eulerAngles(camera.GetRotation());
-		cameraEulerAngles.x -= GetCursorDeltaY() * cameraRotateSpeed * GetDeltaTime();
-		cameraEulerAngles.y -= GetCursorDeltaX() * cameraRotateSpeed * GetDeltaTime();
-		camera.SetRotation(glm::quat(glm::vec3(cameraEulerAngles.x, cameraEulerAngles.y, 0.0f)));
+
+		glm::quat cameraRotation = camera.GetRotation();
+
+		// Change the yaw.
+		cameraRotation = glm::rotate(cameraRotation, -GetCursorDeltaX() * cameraRotateSpeed * GetDeltaTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		// Change the pitch.
+		cameraRotation = glm::rotate(cameraRotation, -GetCursorDeltaY() * cameraRotateSpeed * GetDeltaTime(), glm::vec3(1.0f, 0.0f, 0.0f));
+
+		camera.SetRotation(cameraRotation);
 	}
 }
 

@@ -8,13 +8,15 @@ void Camera::RecalculateProjectionMatrix()
 }
 
 Camera::Camera(float fov, float aspectRatio, float nearClipPlane, float farClipPlane)
-	: position(), rotation(), fov(fov), aspectRatio(aspectRatio), nearClipPlane(nearClipPlane), farClipPlane(farClipPlane)
+	: position(), rotation(1.0f, 0.0f, 0.0f, 0.0f), 
+	  fov(fov), aspectRatio(aspectRatio), nearClipPlane(nearClipPlane), farClipPlane(farClipPlane)
 {
 	RecalculateProjectionMatrix();
 }
 
 glm::vec3 Camera::GetForwardDirection() const
 {
+	// Note: In OpenGL, cameras face backwards in their coordinate system.
 	return rotation * glm::vec3(0.0f, 0.0f, -1.0f);
 }
 
