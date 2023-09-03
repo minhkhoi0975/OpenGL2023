@@ -7,9 +7,9 @@
 ProjectApplication::ProjectApplication(const char* title, int windowWidth, int windowHeight) :
 	Application(title, windowWidth, windowHeight),
 	vertexArray(),
-	texture("textures/sample2.png"),
+	texture("textures/Chad_professors (Credit to Kevin Bujino).png"),
 	shader("Shaders/mvp_shader.vs", "Shaders/mvp_shader.fs"),
-	baseColor(0.5f, 0.8f, 0.0f, 1.0f),
+	baseColor(0.8f, 0.8f, 0.0f, 1.0f),
 	camera(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f)
 {
 	vertexArray.Use();

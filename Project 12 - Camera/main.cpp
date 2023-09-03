@@ -6,6 +6,6 @@
 
 int main(int argc, char* argv[])
 {
-    ProjectApplication application("Hello World!", 1080, 1080);
+    ProjectApplication application("OpenGL", 1080, 1080);
     application.RunLoop();
 }

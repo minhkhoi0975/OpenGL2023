@@ -7,9 +7,9 @@ void Camera::RecalculateProjectionMatrix()
 	projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearClipPlane, farClipPlane);
 }
 
-Camera::Camera(float fov, float aspectRatio, float nearClipPlane, float farClipPlane)
+Camera::Camera(float fovInDegrees, float aspectRatio, float nearClipPlane, float farClipPlane)
 	: position(), rotation(1.0f, 0.0f, 0.0f, 0.0f), 
-	  fov(fov), aspectRatio(aspectRatio), nearClipPlane(nearClipPlane), farClipPlane(farClipPlane)
+	  fov(fovInDegrees), aspectRatio(aspectRatio), nearClipPlane(nearClipPlane), farClipPlane(farClipPlane)
 {
 	RecalculateProjectionMatrix();
 }
@@ -45,9 +45,9 @@ void Camera::SetRotation(glm::quat newRotation)
 	rotation = newRotation;
 }
 
-void Camera::SetFov(float fov)
+void Camera::SetFov(float fovInDegrees)
 {
-	this->fov = fov;
+	this->fov = fovInDegrees;
 	RecalculateProjectionMatrix();
 }
 

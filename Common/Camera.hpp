@@ -35,7 +35,7 @@ public:
 	void SetRotation(glm::quat newRotation);
 
 public:
-	void SetFov(float fov);
+	void SetFov(float fovInDegrees);
 	void SetAspectRatio(float aspectRatio);
 	void SetNearClipPlane(float nearClipPlane);
 	void SetFarClipPlane(float farClipPlane);

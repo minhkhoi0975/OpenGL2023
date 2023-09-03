@@ -8,7 +8,7 @@ Application::Application(const char* title, int windowWidth, int windowHeight)
 	// Initialize GLFW.
 	if (!glfwInit())
 	{
-		std::cout << "Error: Cannot initialize GLFW." << std::endl;
+		std::cerr << "Error: Cannot initialize GLFW." << std::endl;
 		std::exit(EXIT_FAILURE);
 	}
 
@@ -21,7 +21,7 @@ Application::Application(const char* title, int windowWidth, int windowHeight)
 	window = glfwCreateWindow(windowWidth, windowHeight, title, nullptr, nullptr);
 	if (!window)
 	{
-		std::cout << "Error: Cannot create a window." << std::endl;
+		std::cerr << "Error: Cannot create a window." << std::endl;
 		std::exit(EXIT_FAILURE);
 	}
 	glfwMakeContextCurrent(window);
@@ -74,23 +74,16 @@ Application::Application(const char* title, int windowWidth, int windowHeight)
 	// Initialize GLAD.
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cout << "Error: Cannot initialize GLAD. " << std::endl;
+		std::cerr << "Error: Cannot initialize GLAD. " << std::endl;
 		glfwTerminate();
 		std::exit(EXIT_FAILURE);
 	}
-
-	std::cout << "Application initialized." << std::endl;
 }
 
 Application::~Application()
 {
 	OnShutdown();
 	glfwTerminate();
-}
-
-void Application::OnShutdown()
-{
-	std::cout << "Application shut down." << std::endl;
 }
 
 void Application::RunLoop()
@@ -120,10 +113,6 @@ void Application::RunLoop()
 	}
 }
 
-void Application::OnUpdate()
-{
-}
-
 void Application::CloseWindow()
 {
 	glfwSetWindowShouldClose(window, true);
@@ -139,35 +128,4 @@ void Application::GetCursorDelta(float& deltaX, float& deltaY) const
 {
 	deltaX = cursorDeltaX;
 	deltaY = cursorDeltaY;
-}
-
-void Application::OnWindowResized(int newWidth, int newHeight)
-{
-	glViewport(0, 0, newWidth, newHeight);
-}
-
-void Application::OnKeyPressed(int key)
-{
-	if (key == GLFW_KEY_ESCAPE)
-		glfwSetWindowShouldClose(window, true);
-}
-
-void Application::OnKeyReleased(int key)
-{
-}
-
-void Application::OnKeyHeld(int key)
-{
-}
-
-void Application::OnMousePressed(int button)
-{
-}
-
-void Application::OnMouseReleased(int button)
-{
-}
-
-void Application::OnCursorMove(double newMouseX, double newMouseY)
-{
 }

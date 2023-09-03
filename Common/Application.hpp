@@ -19,27 +19,20 @@ private:
 	float deltaTime = 0.0f;
 
 private:
-	float cursorX;
-	float cursorY;
-	float cursorDeltaX;
-	float cursorDeltaY;
+	float cursorX = 0.0f;
+	float cursorY = 0.0f;
+	float cursorDeltaX = 0.0f;
+	float cursorDeltaY = 0.0f;
 
 public:
 	Application(const char* title, int windowWidth, int windowHeight);
 	~Application();
 
 	void RunLoop();
-	virtual void OnUpdate();
+	virtual void OnUpdate() {}
 
-	/// <summary>
-	/// Tells GLFW to close the window.
-	/// </summary>
 	void CloseWindow();
-
-	/// <summary>
-	/// Called before GLFW is terminated.
-	/// </summary>
-	virtual void OnShutdown();
+	virtual void OnShutdown() {}
 
 public:
 	inline float GetLatestFrameTime() const { return latestFrameTime; };
@@ -56,13 +49,13 @@ public:
 
 public:
 	// Events.
-	virtual void OnWindowResized(int newWidth, int newHeight);
+	virtual void OnWindowResized(int newWidth, int newHeight) {}
 
-	virtual void OnKeyPressed(int key);
-	virtual void OnKeyReleased(int key);
-	virtual void OnKeyHeld(int key);
+	virtual void OnKeyPressed(int key) {}
+	virtual void OnKeyReleased(int key) {}
+	virtual void OnKeyHeld(int key) {}
 
-	virtual void OnMousePressed(int button);
-	virtual void OnMouseReleased(int button);
-	virtual void OnCursorMove(double newPositionX, double newPositionY);
+	virtual void OnMousePressed(int button) {}
+	virtual void OnMouseReleased(int button) {}
+	virtual void OnCursorMove(double newPositionX, double newPositionY) {}
 };
