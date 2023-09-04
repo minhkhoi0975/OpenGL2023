@@ -8,14 +8,7 @@ private:
 	GLFWwindow* window;
 
 private:
-	/// <summary>
-	/// The time, in seconds, of the latest frame.
-	/// </summary>
 	float latestFrameTime = 0.0f;
-
-	/// <summary>
-	/// Time between consecutive frames, in seconds.
-	/// </summary>
 	float deltaTime = 0.0f;
 
 private:
