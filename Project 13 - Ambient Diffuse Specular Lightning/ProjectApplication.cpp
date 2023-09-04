@@ -1,0 +1,164 @@
+#include "ProjectApplication.hpp"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
+
+ProjectApplication::ProjectApplication(const char* title, int windowWidth, int windowHeight) :
+	Application(title, windowWidth, windowHeight),
+	vertexArray(),
+	shader("Shaders/ambient_diffuse_specular.vs", "Shaders/ambient_diffuse_specular.fs"),
+	baseColor(0.8f, 0.8f, 0.0f, 1.0f),
+	camera(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f)
+{
+	vertexArray.Use();
+	vertexBuffer.SetData(vertices, sizeof(vertices));
+
+	shader.Use();
+
+	// Set the camera's position.
+	camera.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
+
+	// Set the MVP matrices.
+	model = glm::mat4(1.0f);
+	model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate the cube -55.0 degrees around the x-axis.
+
+	// Enable depth testing.
+	glEnable(GL_DEPTH_TEST);
+}
+
+void ProjectApplication::OnUpdate()
+{
+	// Clear the render buffer.
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Rotate the cube.
+	model = glm::rotate(model, GetDeltaTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+
+	// Update the normal matrix.
+	UpdateNormalMatrix();
+
+	// Update the camera's position.
+	UpdateCameraTransform();
+
+	// Set the positions.
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	// Set the normals.
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	// Set MVP matrices.
+	shader.SetUniformMatrix4("model", model);
+	shader.SetUniformMatrix4("view", camera.GetViewMatrix());
+	shader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
+
+	// Set the normal matrix.
+	shader.SetUniformMatrix3("normalMatrix", normalMatrix);
+
+	// Set lightning properties.
+	shader.SetUniformVector3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.SetUniformFloat("ambientStrength", 0.1f);
+	shader.SetUniformVector3("ambientColor", glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.SetUniformVector3("lightPosition", glm::vec3(5.0f, 5.0f, 5.0f));
+	shader.SetUniformVector3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.SetUniformVector3("viewPosition", camera.GetPosition());
+	shader.SetUniformFloat("specularStrength", 0.5f);
+	shader.SetUniformFloat("shininess", 128.0f);
+
+	// Set color.
+	shader.SetUniformVector4("color", baseColor);
+
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+void ProjectApplication::UpdateNormalMatrix()
+{
+	normalMatrix = glm::mat3(transpose(glm::inverse(model * camera.GetViewMatrix())));
+}
+
+void ProjectApplication::UpdateCameraTransform()
+{
+	// Update position.
+	float cameraSpeed = 5.0f;
+	camera.SetPosition(camera.GetPosition() + cameraMoveInput.y * camera.GetForwardDirection() * cameraSpeed * GetDeltaTime());
+	camera.SetPosition(camera.GetPosition() + cameraMoveInput.x * camera.GetRightDirection() * cameraSpeed * GetDeltaTime());
+
+	// Update rotation.
+	if (shouldRotateCamera)
+	{
+		float cameraRotateSpeed = 1.0f;
+
+		glm::quat cameraRotation = camera.GetRotation();
+
+		// Change the yaw.
+		cameraRotation = glm::rotate(cameraRotation, -GetCursorDeltaX() * cameraRotateSpeed * GetDeltaTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		// Change the pitch.
+		cameraRotation = glm::rotate(cameraRotation, -GetCursorDeltaY() * cameraRotateSpeed * GetDeltaTime(), glm::vec3(1.0f, 0.0f, 0.0f));
+
+		camera.SetRotation(cameraRotation);
+	}
+}
+
+void ProjectApplication::OnWindowResized(int newWidth, int newHeight)
+{
+	glViewport(0, 0, newWidth, newHeight);
+	camera.SetAspectRatio((float)newWidth / newHeight);
+}
+
+void ProjectApplication::OnKeyPressed(int key)
+{
+	switch (key)
+	{
+	case GLFW_KEY_W:
+		cameraMoveInput.y += 1.0f;
+		break;
+	case GLFW_KEY_S:
+		cameraMoveInput.y -= 1.0f;
+		break;
+	case GLFW_KEY_D:
+		cameraMoveInput.x += 1.0f;
+		break;
+	case GLFW_KEY_A:
+		cameraMoveInput.x -= 1.0f;
+		break;
+
+	case GLFW_KEY_ESCAPE:
+		CloseWindow();
+		break;
+	}
+}
+
+void ProjectApplication::OnKeyReleased(int key)
+{
+	switch (key)
+	{
+	case GLFW_KEY_W:
+		cameraMoveInput.y -= 1.0f;
+		break;
+	case GLFW_KEY_S:
+		cameraMoveInput.y += 1.0f;
+		break;
+	case GLFW_KEY_D:
+		cameraMoveInput.x -= 1.0f;
+		break;
+	case GLFW_KEY_A:
+		cameraMoveInput.x += 1.0f;
+		break;
+	}
+}
+
+void ProjectApplication::OnMousePressed(int button)
+{
+	if (button == GLFW_MOUSE_BUTTON_RIGHT)
+		shouldRotateCamera = true;
+}
+
+void ProjectApplication::OnMouseReleased(int button)
+{
+	if (button == GLFW_MOUSE_BUTTON_RIGHT)
+		shouldRotateCamera = false;
+}
