@@ -13,8 +13,8 @@ class ProjectApplication : public Application
 private:
 	VertexArray vertexArray;
 	VertexBuffer vertexBuffer;
-	Shader shader;
-	glm::vec4 baseColor;
+	Shader cubeShader;
+    Shader lightShader;
 
     float ambientStrength;
     glm::vec4 ambientColor;
@@ -68,10 +68,13 @@ private:
     };
 
     // The cube's model matrix.
-    glm::mat4 model;
+    glm::mat4 cubeModelMatrix;
 
     // The cube's normal matrix.
     glm::mat3 normalMatrix;
+
+    // The light's model matrix.
+    glm::mat4 lightModelMatrix;
 
 private:
     Camera camera;
@@ -80,6 +83,10 @@ private:
 
 private:
     void UpdateNormalMatrix();
+
+private:
+    void DrawLight();
+    void DrawCube();
 
 public:
 	ProjectApplication(const char* title, int windowWidth, int windowHeight);

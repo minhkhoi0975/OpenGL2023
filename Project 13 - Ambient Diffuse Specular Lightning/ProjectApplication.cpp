@@ -7,21 +7,25 @@
 ProjectApplication::ProjectApplication(const char* title, int windowWidth, int windowHeight) :
 	Application(title, windowWidth, windowHeight),
 	vertexArray(),
-	shader("Shaders/ambient_diffuse_specular.vs", "Shaders/ambient_diffuse_specular.fs"),
-	baseColor(0.8f, 0.8f, 0.0f, 1.0f),
+	cubeShader("Shaders/ambient_diffuse_specular.vs", "Shaders/ambient_diffuse_specular.fs"),
+	lightShader("Shaders/light.vs", "Shaders/light.fs"),
 	camera(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f)
 {
 	vertexArray.Use();
 	vertexBuffer.SetData(vertices, sizeof(vertices));
 
-	shader.Use();
+	cubeShader.Use();
 
 	// Set the camera's position.
 	camera.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 
-	// Set the MVP matrices.
-	model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate the cube -55.0 degrees around the x-axis.
+	// Set the cube's model matrix.
+	cubeModelMatrix = glm::mat4(1.0f);
+	//cubeModelMatrix = glm::rotate(cubeModelMatrix, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate the cube -55.0 degrees around the x-axis.
+
+	// Set the light's model matrix.
+	lightModelMatrix = glm::mat4(1.0f);
+	lightModelMatrix = glm::translate(lightModelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
 
 	// Enable depth testing.
 	glEnable(GL_DEPTH_TEST);
@@ -34,13 +38,32 @@ void ProjectApplication::OnUpdate()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Rotate the cube.
-	model = glm::rotate(model, GetDeltaTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+	//cubeModelMatrix = glm::rotate(cubeModelMatrix, GetDeltaTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 
 	// Update the normal matrix.
 	UpdateNormalMatrix();
 
 	// Update the camera's position.
 	UpdateCameraTransform();
+
+	DrawLight();
+	DrawCube();
+}
+
+void ProjectApplication::UpdateNormalMatrix()
+{
+	normalMatrix = glm::mat3(transpose(glm::inverse(cubeModelMatrix * camera.GetViewMatrix())));
+}
+
+void ProjectApplication::DrawLight()
+{
+	lightShader.Use();
+
+	lightShader.SetUniformMatrix4("model", lightModelMatrix);
+	lightShader.SetUniformMatrix4("view", camera.GetViewMatrix());
+	lightShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
+
+	lightShader.SetUniformVector3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// Set the positions.
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
@@ -50,33 +73,40 @@ void ProjectApplication::OnUpdate()
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	// Set MVP matrices.
-	shader.SetUniformMatrix4("model", model);
-	shader.SetUniformMatrix4("view", camera.GetViewMatrix());
-	shader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
-
-	// Set the normal matrix.
-	shader.SetUniformMatrix3("normalMatrix", normalMatrix);
-
-	// Set lightning properties.
-	shader.SetUniformVector3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.SetUniformFloat("ambientStrength", 0.1f);
-	shader.SetUniformVector3("ambientColor", glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.SetUniformVector3("lightPosition", glm::vec3(5.0f, 5.0f, 5.0f));
-	shader.SetUniformVector3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-	shader.SetUniformVector3("viewPosition", camera.GetPosition());
-	shader.SetUniformFloat("specularStrength", 0.5f);
-	shader.SetUniformFloat("shininess", 128.0f);
-
-	// Set color.
-	shader.SetUniformVector4("color", baseColor);
-
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-void ProjectApplication::UpdateNormalMatrix()
+void ProjectApplication::DrawCube()
 {
-	normalMatrix = glm::mat3(transpose(glm::inverse(model * camera.GetViewMatrix())));
+	cubeShader.Use();
+
+	// Set MVP matrices.
+	cubeShader.SetUniformMatrix4("model", cubeModelMatrix);
+	cubeShader.SetUniformMatrix4("view", camera.GetViewMatrix());
+	cubeShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
+
+	// Set the normal matrix.
+	cubeShader.SetUniformMatrix3("normalMatrix", normalMatrix);
+
+	// Set lightning properties.
+	cubeShader.SetUniformVector3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
+	cubeShader.SetUniformFloat("ambientStrength", 0.1f);
+	cubeShader.SetUniformVector3("ambientColor", glm::vec3(1.0f, 0.0f, 0.0f));
+	cubeShader.SetUniformVector3("lightPosition", glm::vec3(5.0f, 5.0f, 5.0f));
+	cubeShader.SetUniformVector3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	cubeShader.SetUniformVector3("viewPosition", camera.GetPosition());
+	cubeShader.SetUniformFloat("specularStrength", 0.5f);
+	cubeShader.SetUniformFloat("shininess", 128.0f);
+
+	// Set the positions.
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	// Set the normals.
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 void ProjectApplication::UpdateCameraTransform()
