@@ -14,10 +14,15 @@ Camera::Camera(float fovInDegrees, float aspectRatio, float nearClipPlane, float
 	RecalculateProjectionMatrix();
 }
 
-glm::vec3 Camera::GetForwardDirection() const
+glm::vec3 Camera::GetFacingDirection() const
 {
 	// Note: In OpenGL, cameras face backwards in their coordinate system.
 	return rotation * glm::vec3(0.0f, 0.0f, -1.0f);
+}
+
+glm::vec3 Camera::GetForwardDirection() const
+{
+	return rotation * glm::vec3(0.0f, 0.0f, 1.0f);
 }
 
 glm::vec3 Camera::GetRightDirection() const
@@ -37,7 +42,7 @@ void Camera::SetPosition(glm::vec3 newPosition)
 
 void Camera::SetRotation(float pitch, float yaw, float roll)
 {
-	rotation = glm::quat(glm::vec3(-pitch, -yaw, -roll));
+	rotation = glm::quat(glm::vec3(pitch, yaw, roll));
 }
 
 void Camera::SetRotation(glm::quat newRotation)

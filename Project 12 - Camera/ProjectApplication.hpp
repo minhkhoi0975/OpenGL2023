@@ -69,6 +69,8 @@ private:
 
 private:
     Camera camera;
+    float cameraPitch, cameraYaw;
+
     glm::vec2 cameraMoveInput = glm::vec2();
     bool shouldRotateCamera = false;
 

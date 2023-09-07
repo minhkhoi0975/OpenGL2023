@@ -113,7 +113,7 @@ void ProjectApplication::UpdateCameraTransform()
 {
 	// Update position.
 	float cameraSpeed = 5.0f;
-	camera.SetPosition(camera.GetPosition() + cameraMoveInput.y * camera.GetForwardDirection() * cameraSpeed * GetDeltaTime());
+	camera.SetPosition(camera.GetPosition() + cameraMoveInput.y * camera.GetFacingDirection() * cameraSpeed * GetDeltaTime());
 	camera.SetPosition(camera.GetPosition() + cameraMoveInput.x * camera.GetRightDirection() * cameraSpeed * GetDeltaTime());
 
 	// Update rotation.
@@ -121,15 +121,13 @@ void ProjectApplication::UpdateCameraTransform()
 	{
 		float cameraRotateSpeed = 1.0f;
 
-		glm::quat cameraRotation = camera.GetRotation();
+		// Update the yaw.
+		cameraYaw += -GetCursorDeltaX() * cameraRotateSpeed * GetDeltaTime();
 
-		// Change the yaw.
-		cameraRotation = glm::rotate(cameraRotation, -GetCursorDeltaX() * cameraRotateSpeed * GetDeltaTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+		// Update the pitch.
+		cameraPitch += -GetCursorDeltaY() * cameraRotateSpeed * GetDeltaTime();
 
-		// Change the pitch.
-		cameraRotation = glm::rotate(cameraRotation, -GetCursorDeltaY() * cameraRotateSpeed * GetDeltaTime(), glm::vec3(1.0f, 0.0f, 0.0f));
-
-		camera.SetRotation(cameraRotation);
+		camera.SetRotation(cameraPitch, cameraYaw, 0.0f);
 	}
 }
 

@@ -26,6 +26,8 @@ public:
 	inline glm::vec3 GetPosition() { return position; }
 	inline glm::quat GetRotation() { return rotation; }
 
+	// This is the true direction the camera is facing in OpenGL. Don't confuse this with GetForwardDirection().
+	glm::vec3 GetFacingDirection() const;
 	glm::vec3 GetForwardDirection() const;
 	glm::vec3 GetRightDirection() const;
 	glm::vec3 GetUpDirection() const;
