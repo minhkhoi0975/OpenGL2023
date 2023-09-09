@@ -6,6 +6,7 @@
 #include "../Common/Shader.hpp"
 #include "../Common/Texture.hpp"
 #include "../Common/Camera.hpp"
+#include "../Common/ModelMatrix.hpp"
 
 // Should be duplicated and modified for each project in this solution.
 class ProjectApplication : public Application
@@ -16,11 +17,7 @@ private:
 	Shader cubeShader;
     Shader lightShader;
 
-    float ambientStrength;
-    glm::vec4 ambientColor;
-    glm::vec4 objectColor;
-
-	// Define the vertices of the cube.
+	// Define the vertices of a cube.
     float vertices[216] =
     {
          // Positions         // Normals
@@ -68,13 +65,13 @@ private:
     };
 
     // The cube's model matrix.
-    glm::mat4 cubeModelMatrix;
+    ModelMatrix cubeModelMatrix = ModelMatrix(glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(glm::vec3(0.0f, 50.0f, 0.0f)), glm::vec3(2.0f, 3.0f, 1.0f));
 
     // The cube's normal matrix.
     glm::mat3 normalMatrix;
 
     // The light's model matrix.
-    glm::mat4 lightModelMatrix;
+    ModelMatrix lightModelMatrix = ModelMatrix(glm::vec3(5.0f, 5.0f, 5.0f), glm::quat(glm::vec3(0.0f, 50.0f, 0.0f)));
 
 private:
     Camera camera;

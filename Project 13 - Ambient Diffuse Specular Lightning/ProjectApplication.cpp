@@ -14,18 +14,8 @@ ProjectApplication::ProjectApplication(const char* title, int windowWidth, int w
 	vertexArray.Use();
 	vertexBuffer.SetData(vertices, sizeof(vertices));
 
-	cubeShader.Use();
-
 	// Set the camera's position.
 	camera.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
-
-	// Set the cube's model matrix.
-	cubeModelMatrix = glm::mat4(1.0f);
-	//cubeModelMatrix = glm::rotate(cubeModelMatrix, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate the cube -55.0 degrees around the x-axis.
-
-	// Set the light's model matrix.
-	lightModelMatrix = glm::mat4(1.0f);
-	lightModelMatrix = glm::translate(lightModelMatrix, glm::vec3(5.0f, 5.0f, 5.0f));
 
 	// Enable depth testing.
 	glEnable(GL_DEPTH_TEST);
@@ -38,7 +28,11 @@ void ProjectApplication::OnUpdate()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Rotate the cube.
-	//cubeModelMatrix = glm::rotate(cubeModelMatrix, GetDeltaTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+	cubeModelMatrix.Rotate(glm::quat(glm::vec3(glm::radians(90.0f * GetDeltaTime()), glm::radians(90.0f * GetDeltaTime()), 0.0f)));
+
+	// Translate the light.
+	glm::vec3 currentLightPosition = lightModelMatrix.GetPosition();
+	lightModelMatrix.SetPosition(currentLightPosition.x, 5 + 10 * glm::sin(GetLatestFrameTime()), 5 + 10 * glm::sin(GetLatestFrameTime()));
 
 	// Update the normal matrix.
 	UpdateNormalMatrix();
@@ -52,14 +46,14 @@ void ProjectApplication::OnUpdate()
 
 void ProjectApplication::UpdateNormalMatrix()
 {
-	normalMatrix = glm::mat3(transpose(glm::inverse(cubeModelMatrix * camera.GetViewMatrix())));
+	normalMatrix = glm::mat3(transpose(glm::inverse(cubeModelMatrix.GetModelMatrix())));
 }
 
 void ProjectApplication::DrawLight()
 {
 	lightShader.Use();
 
-	lightShader.SetUniformMatrix4("model", lightModelMatrix);
+	lightShader.SetUniformMatrix4("model", lightModelMatrix.GetModelMatrix());
 	lightShader.SetUniformMatrix4("view", camera.GetViewMatrix());
 	lightShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
 
@@ -81,7 +75,7 @@ void ProjectApplication::DrawCube()
 	cubeShader.Use();
 
 	// Set MVP matrices.
-	cubeShader.SetUniformMatrix4("model", cubeModelMatrix);
+	cubeShader.SetUniformMatrix4("model", cubeModelMatrix.GetModelMatrix());
 	cubeShader.SetUniformMatrix4("view", camera.GetViewMatrix());
 	cubeShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
 
@@ -90,12 +84,12 @@ void ProjectApplication::DrawCube()
 
 	// Set lightning properties.
 	cubeShader.SetUniformVector3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
-	cubeShader.SetUniformFloat("ambientStrength", 0.1f);
+	cubeShader.SetUniformFloat("ambientStrength", 0.2f);
 	cubeShader.SetUniformVector3("ambientColor", glm::vec3(1.0f, 0.0f, 0.0f));
-	cubeShader.SetUniformVector3("lightPosition", glm::vec3(5.0f, 5.0f, 5.0f));
-	cubeShader.SetUniformVector3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	cubeShader.SetUniformVector3("lightPosition", lightModelMatrix.GetPosition());
+	cubeShader.SetUniformVector3("lightColor", glm::vec3(1.0f, 1.0f, 0.0f));
 	cubeShader.SetUniformVector3("viewPosition", camera.GetPosition());
-	cubeShader.SetUniformFloat("specularStrength", 0.5f);
+	cubeShader.SetUniformFloat("specularStrength", 0.8f);
 	cubeShader.SetUniformFloat("shininess", 128.0f);
 
 	// Set the positions.
@@ -128,6 +122,9 @@ void ProjectApplication::UpdateCameraTransform()
 		cameraPitch += -GetCursorDeltaY() * cameraRotateSpeed * GetDeltaTime();
 
 		camera.SetRotation(cameraPitch, cameraYaw, 0.0f);
+
+		glm::vec3 cameraEulerAngles = glm::eulerAngles(camera.GetRotation());
+		std::cout << "Pitch: " << cameraEulerAngles.x << ", Yaw: " << cameraEulerAngles.y << ", Roll: " << cameraEulerAngles.z << std::endl;
 	}
 }
 
