@@ -46,8 +46,7 @@ void ProjectApplication::OnUpdate()
 
 void ProjectApplication::UpdateNormalMatrix()
 {
-	glm::mat3 modelViewMatrix(cubeModelMatrix.GetModelMatrix());
-	normalMatrix = glm::transpose(glm::inverse(modelViewMatrix));
+	normalMatrix = glm::transpose(glm::inverse(cubeModelMatrix.GetModelMatrix()));
 }
 
 void ProjectApplication::DrawLight()
