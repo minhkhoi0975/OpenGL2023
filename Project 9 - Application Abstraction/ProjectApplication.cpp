@@ -24,7 +24,7 @@ ProjectApplication::ProjectApplication(const char* title, int windowWidth, int w
 	shader.Use();
 }
 
-void ProjectApplication::OnUpdate()
+void ProjectApplication::OnUpdate(const float& deltaTime)
 {
 	// Clear the render buffer.
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);

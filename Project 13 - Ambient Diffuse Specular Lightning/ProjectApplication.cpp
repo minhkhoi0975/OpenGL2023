@@ -21,14 +21,14 @@ ProjectApplication::ProjectApplication(const char* title, int windowWidth, int w
 	glEnable(GL_DEPTH_TEST);
 }
 
-void ProjectApplication::OnUpdate()
+void ProjectApplication::OnUpdate(const float& deltaTime)
 {
 	// Clear the render buffer.
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Rotate the cube.
-	cubeModelMatrix.Rotate(glm::quat(glm::vec3(glm::radians(90.0f * GetDeltaTime()), glm::radians(90.0f * GetDeltaTime()), 0.0f)));
+	cubeModelMatrix.Rotate(glm::quat(glm::vec3(glm::radians(90.0f * deltaTime), glm::radians(90.0f * deltaTime), 0.0f)));
 
 	// Translate the light.
 	glm::vec3 currentLightPosition = lightModelMatrix.GetPosition();

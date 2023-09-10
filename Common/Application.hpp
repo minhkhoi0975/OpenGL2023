@@ -22,7 +22,7 @@ public:
 	~Application();
 
 	void RunLoop();
-	virtual void OnUpdate() {}
+	virtual void OnUpdate(const float& deltaTime) {}
 
 	void CloseWindow();
 	virtual void OnShutdown() {}

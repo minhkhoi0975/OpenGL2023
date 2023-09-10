@@ -103,7 +103,7 @@ void Application::RunLoop()
 		cursorX = newCursorX;
 		cursorY = newCursorY;
 
-		OnUpdate();
+		OnUpdate(deltaTime);
 
 		// Swap front and back buffers.
 		glfwSwapBuffers(window);

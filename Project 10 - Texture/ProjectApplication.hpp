@@ -37,5 +37,5 @@ private:
 public:
 	ProjectApplication(const char* title, int windowWidth, int windowHeight);
 
-	void OnUpdate() override;
+	void OnUpdate(const float& deltaTime) override;
 };
