@@ -28,7 +28,7 @@ void ProjectApplication::OnUpdate()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Rotate the cube.
-	//cubeModelMatrix.Rotate(glm::quat(glm::vec3(glm::radians(90.0f * GetDeltaTime()), glm::radians(90.0f * GetDeltaTime()), 0.0f)));
+	cubeModelMatrix.Rotate(glm::quat(glm::vec3(glm::radians(90.0f * GetDeltaTime()), glm::radians(90.0f * GetDeltaTime()), 0.0f)));
 
 	// Translate the light.
 	glm::vec3 currentLightPosition = lightModelMatrix.GetPosition();
