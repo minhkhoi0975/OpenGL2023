@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project13 - Ambient Diffuse
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project14 - Material", "Project 14 - Material\Project 14 - Material.vcxproj", "{885BF7EE-597F-49E8-A433-431AA4964A1C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project15 - Lightning Map", "Project 15 - Lightning Map\Project 15 - Lightning Map.vcxproj", "{0387E56A-28A0-46C3-B610-616FC43CEC9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -151,6 +153,14 @@ Global
 		{885BF7EE-597F-49E8-A433-431AA4964A1C}.Release|x64.Build.0 = Release|x64
 		{885BF7EE-597F-49E8-A433-431AA4964A1C}.Release|x86.ActiveCfg = Release|Win32
 		{885BF7EE-597F-49E8-A433-431AA4964A1C}.Release|x86.Build.0 = Release|Win32
+		{0387E56A-28A0-46C3-B610-616FC43CEC9D}.Debug|x64.ActiveCfg = Debug|x64
+		{0387E56A-28A0-46C3-B610-616FC43CEC9D}.Debug|x64.Build.0 = Debug|x64
+		{0387E56A-28A0-46C3-B610-616FC43CEC9D}.Debug|x86.ActiveCfg = Debug|Win32
+		{0387E56A-28A0-46C3-B610-616FC43CEC9D}.Debug|x86.Build.0 = Debug|Win32
+		{0387E56A-28A0-46C3-B610-616FC43CEC9D}.Release|x64.ActiveCfg = Release|x64
+		{0387E56A-28A0-46C3-B610-616FC43CEC9D}.Release|x64.Build.0 = Release|x64
+		{0387E56A-28A0-46C3-B610-616FC43CEC9D}.Release|x86.ActiveCfg = Release|Win32
+		{0387E56A-28A0-46C3-B610-616FC43CEC9D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -109,6 +109,11 @@ void Shader::Use() const
 	glUseProgram(id);
 }
 
+void Shader::SetUniformInt(const char* name, const int& value)
+{
+	glUniform1i(glGetUniformLocation(id, name), value);
+}
+
 void Shader::SetUniformFloat(const char* name, const float& value)
 {
 	glUniform1f(glGetUniformLocation(id, name), value);

@@ -1,4 +1,5 @@
 #pragma once
+#include <glad/glad.h>
 
 class Texture
 {
@@ -11,7 +12,7 @@ private:
 	unsigned char* data;
 
 public:
-	Texture(const char* fileName);
+	Texture(const char* fileName, const int& imageFormat = GL_RGBA);
 	~Texture();
 
 	void Use();

@@ -21,6 +21,7 @@ public:
 	/// </summary>
 	void Use() const;
 
+	void SetUniformInt(const char* name, const int& value);
 	void SetUniformFloat(const char* name, const float& value);
 	void SetUniformVector3(const char* name, const glm::vec3& value);
 	void SetUniformVector4(const char* name, const glm::vec4& value);

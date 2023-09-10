@@ -1,11 +1,9 @@
 #include "Texture.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-
-#include <glad/glad.h>
 #include <iostream>
 
-Texture::Texture(const char* fileName)
+Texture::Texture(const char* fileName, const int& imageFormat)
 {
 	// The origin of the image is in top left, but the origin of UV is bottom left.
 	// Without calling this function, the image is vertically reversed.
@@ -29,7 +27,7 @@ Texture::Texture(const char* fileName)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	// Bind the image to the texture.
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, width, height, 0, imageFormat, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 }
 
