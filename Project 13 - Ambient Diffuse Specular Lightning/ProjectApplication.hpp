@@ -93,7 +93,7 @@ public:
 	void OnUpdate(const float& deltaTime) override;
 
 public:
-    void UpdateCameraTransform();
+    void UpdateCameraTransform(const float& deltaTime);
 
 public:
     virtual void OnWindowResized(int newWidth, int newHeight);

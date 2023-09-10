@@ -38,7 +38,7 @@ void ProjectApplication::OnUpdate(const float& deltaTime)
 	UpdateNormalMatrix();
 
 	// Update the camera's position.
-	UpdateCameraTransform();
+	UpdateCameraTransform(deltaTime);
 
 	DrawLight();
 	DrawCube();
@@ -106,12 +106,12 @@ void ProjectApplication::DrawCube()
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-void ProjectApplication::UpdateCameraTransform()
+void ProjectApplication::UpdateCameraTransform(const float& deltaTime)
 {
 	// Update position.
 	float cameraSpeed = 5.0f;
-	camera.SetPosition(camera.GetPosition() + cameraMoveInput.y * camera.GetFacingDirection() * cameraSpeed * GetDeltaTime());
-	camera.SetPosition(camera.GetPosition() + cameraMoveInput.x * camera.GetRightDirection() * cameraSpeed * GetDeltaTime());
+	camera.SetPosition(camera.GetPosition() + cameraMoveInput.y * camera.GetFacingDirection() * cameraSpeed * deltaTime);
+	camera.SetPosition(camera.GetPosition() + cameraMoveInput.x * camera.GetRightDirection() * cameraSpeed * deltaTime);
 
 	// Update rotation.
 	if (shouldRotateCamera)
