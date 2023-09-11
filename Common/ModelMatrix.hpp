@@ -12,7 +12,7 @@ private:
 	glm::vec3 scale;
 
 public:
-	ModelMatrix(glm::vec3 position, glm::quat rotation, glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f))
+	ModelMatrix(glm::vec3 position = glm::vec3(), glm::quat rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f))
 		: position(position), rotation(rotation), scale(scale) {};
 
 	inline glm::vec3 GetPosition() const { return position; }
