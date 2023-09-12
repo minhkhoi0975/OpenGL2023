@@ -12,6 +12,9 @@
 
 class Model
 {
+private:
+	std::vector<Texture> loadedTextures;
+
 public:
 	std::vector<Mesh> meshes;
 	std::string textureDirectory;
@@ -23,5 +26,9 @@ private:
 	TextureType GetTextureType(aiTextureType assimpTextureType);
 
 public:
+	Model();
 	Model(const char* path);
+
+public:
+	void LoadModel(const char* path);
 };

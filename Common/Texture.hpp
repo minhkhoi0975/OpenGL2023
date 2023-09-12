@@ -1,5 +1,6 @@
 #pragma once
 #include <glad/glad.h>
+#include <string>
 
 enum class TextureType
 {
@@ -18,7 +19,7 @@ private:
 	int nrChannels;
 	unsigned char* data;
 
-	const char* filePath;
+	std::string filePath;
 	TextureType textureType;
 
 public:
@@ -26,4 +27,5 @@ public:
 	~Texture();
 
 	void Use();
+	inline std::string GetFilePath() { return filePath; }
 };

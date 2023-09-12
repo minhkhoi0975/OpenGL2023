@@ -7,18 +7,16 @@
 
 ProjectApplication::ProjectApplication(const char* title, int windowWidth, int windowHeight) :
 	Application(title, windowWidth, windowHeight),
-	vertexArray(),
 	cubeShader("Shaders/material.vs", "Shaders/material.fs"),
 	lightShader("Shaders/light.vs", "Shaders/light.fs"),
-	model("Models/backpack.obj"),
 	camera(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f)
 {
-	vertexArray.Use();
-	vertexBuffer.SetData(vertices, sizeof(vertices));
-
 	// Set up the initial model matrices of the lights.
 	for (int i = 0; i < POINT_LIGHT_COUNT; ++i)
 		pointLightModelMatrices[i] = ModelMatrix(pointLightPositions[i]);
+
+	// Load model.
+	model.LoadModel("models/backpack.obj");
 
 	// Set the camera's position.
 	camera.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));

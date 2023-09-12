@@ -2,7 +2,14 @@
 
 #include <iostream>
 
+Model::Model() {}
+
 Model::Model(const char* path)
+{
+	LoadModel(path);
+}
+
+void Model::LoadModel(const char* path)
 {
 	// Load model from file.
 	Assimp::Importer importer;
@@ -95,11 +102,26 @@ std::vector<Texture> Model::LoadTextures(aiMaterial* material, aiTextureType tex
 
 		std::string textureFilePath = textureDirectory + "/" + string.C_Str();
 		const char* textureFilePathCStr = textureFilePath.c_str();
-		std::cout << "Loading " << textureFilePath << std::endl;
 
-		//Texture texture(string.C_Str(), GetTextureType(textureType));
-		Texture texture(textureFilePathCStr, GetTextureType(textureType));
-		textures.push_back(texture);
+		// Check if the texture is already loaded from file.
+		bool skip = false;
+		for (unsigned int j = 0; j < loadedTextures.size(); ++j)
+		{
+			if (loadedTextures[j].GetFilePath().compare(textureFilePath) == 0)
+			{
+				textures.push_back(loadedTextures[j]);
+				skip = true;
+				break;
+			}
+		}
+
+		// Texture needs to be loaded from file.
+		if (!skip)
+		{
+			Texture texture(textureFilePathCStr, GetTextureType(textureType));
+			textures.push_back(texture);
+			loadedTextures.push_back(texture);
+		}
 	}
 
 	return textures;
