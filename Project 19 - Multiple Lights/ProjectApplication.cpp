@@ -105,7 +105,7 @@ void ProjectApplication::DrawCubes()
 
 		// Directional light.
 		cubeShader.SetUniformVector3("directionalLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
-		cubeShader.SetUniformVector3("directionalLight.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
+		cubeShader.SetUniformVector3("directionalLight.ambient", glm::vec3(0.1f, 0.1f, 0.1f));
 		cubeShader.SetUniformVector3("directionalLight.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
 		cubeShader.SetUniformVector3("directionalLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
 

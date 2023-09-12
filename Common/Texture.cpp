@@ -3,17 +3,18 @@
 #include "stb_image.h"
 #include <iostream>
 
-Texture::Texture(const char* fileName, const int& imageFormat)
+Texture::Texture(const char* filePath, TextureType textureType, const int& imageFormat): 
+	filePath(filePath), textureType(textureType)
 {
 	// The origin of the image is in top left, but the origin of UV is bottom left.
 	// Without calling this function, the image is vertically reversed.
 	stbi_set_flip_vertically_on_load(true);
 
 	// Load the image.
-	data = stbi_load(fileName, &width, &height, &nrChannels, 0);
+	data = stbi_load(filePath, &width, &height, &nrChannels, 0);
 	if (!data)
 	{
-		std::cout << "Error: Cannot load the texture " << fileName << std::endl;
+		std::cout << "Error: Cannot load the texture " << filePath << std::endl;
 		return;
 	}
 
@@ -29,6 +30,8 @@ Texture::Texture(const char* fileName, const int& imageFormat)
 	// Bind the image to the texture.
 	glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, width, height, 0, imageFormat, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
+
+	std::cout << "Loaded texture " << filePath << std::endl;
 }
 
 Texture::~Texture()

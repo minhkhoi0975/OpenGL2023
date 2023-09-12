@@ -1,6 +1,13 @@
 #pragma once
 #include <glad/glad.h>
 
+enum class TextureType
+{
+	Unknown = 0,
+	Diffuse = 1,
+	Specular = 2
+};
+
 class Texture
 {
 private:
@@ -11,8 +18,11 @@ private:
 	int nrChannels;
 	unsigned char* data;
 
+	const char* filePath;
+	TextureType textureType;
+
 public:
-	Texture(const char* fileName, const int& imageFormat = GL_RGBA);
+	Texture(const char* filePath, TextureType textureType = TextureType::Unknown, const int& imageFormat = GL_RGBA);
 	~Texture();
 
 	void Use();
