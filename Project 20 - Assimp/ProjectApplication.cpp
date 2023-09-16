@@ -10,7 +10,7 @@ ProjectApplication::ProjectApplication(const char* title, int windowWidth, int w
 	cubeShader("Shaders/material.vs", "Shaders/plain_texture.fs"),
 	lightShader("Shaders/light.vs", "Shaders/light.fs"),
 	camera(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f),
-	model("models/backpack.obj")
+	model("models/imc_grunt_anti_titan.obj")
 {
 	// Set up the initial model matrices of the lights.
 	for (int i = 0; i < POINT_LIGHT_COUNT; ++i)
@@ -18,6 +18,9 @@ ProjectApplication::ProjectApplication(const char* title, int windowWidth, int w
 
 	// Set the model matrix.
 	modelMatrix = ModelMatrix();
+
+	// Set the normal matrix.
+	UpdateNormalMatrix();
 
 	// Set the camera's position.
 	camera.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));

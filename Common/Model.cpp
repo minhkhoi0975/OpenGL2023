@@ -13,7 +13,7 @@ void Model::LoadModel(const char* path)
 {
 	// Load model from file.
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate /* | aiProcess_FlipUVs*/);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cerr << "Error: Cannot load model from " << path << std::endl;
@@ -114,7 +114,11 @@ std::vector<Texture> Model::LoadTextures(aiMaterial* material, aiTextureType tex
 		aiString string;
 		material->GetTexture(textureType, i, &string);
 
-		std::string textureFilePath = textureDirectory + "/" + string.C_Str();
+		// Only keep the file name of the texture instead of using the whole path.
+		std::string fileName = string.C_Str();
+		fileName = fileName.substr(fileName.find_last_of("/\\") + 1);
+
+		std::string textureFilePath = textureDirectory + "/" + fileName;
 		const char* textureFilePathCStr = textureFilePath.c_str();
 
 		// Don't load the texture if it has already been loaded.
