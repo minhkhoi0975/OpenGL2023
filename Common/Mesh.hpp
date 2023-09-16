@@ -13,9 +13,7 @@
 class Mesh
 {
 public:
-	VertexArray vao;
-	VertexBuffer vbo;
-	ElementBuffer ebo;
+	unsigned int vao, vbo, ebo;
 
 public:
 	std::vector<Vertex> vertices;

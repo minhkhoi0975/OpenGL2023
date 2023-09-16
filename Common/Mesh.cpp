@@ -1,17 +1,18 @@
 #include "Mesh.hpp"
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indicies, std::vector<Texture> textures)
-	: vertices(vertices), indicies(indicies), textures(textures), vao()
+	: vertices(vertices), indicies(indicies), textures(textures)
 {
-	vao.Use();
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 
-	vbo = VertexBuffer();
-	vbo.Use();
-	vbo.SetData(&vertices[0], vertices.size() * sizeof(Vertex));
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-	ebo = ElementBuffer();
-	ebo.Use();
-	ebo.SetData(&indicies[0], indicies.size() * sizeof(unsigned int));
+	glGenBuffers(1, &ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicies.size() * sizeof(unsigned int), &indicies[0], GL_STATIC_DRAW);
 
 	// Set the positions.
 	glEnableVertexAttribArray(0);
@@ -25,7 +26,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indicies, std
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(6 * sizeof(float)));
 
-	vao.Unuse();
+	glBindVertexArray(0);
 }
 
 void Mesh::Draw(Shader& shader)
@@ -54,7 +55,7 @@ void Mesh::Draw(Shader& shader)
 
 	glActiveTexture(GL_TEXTURE0);
 
-	vao.Use();
+	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indicies.size(), GL_UNSIGNED_INT, 0);
-	vao.Unuse();
+	glBindVertexArray(0);
 }
