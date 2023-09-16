@@ -64,6 +64,8 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			vertex.textureCoordinates.x = mesh->mTextureCoords[0][i].x;
 			vertex.textureCoordinates.y = mesh->mTextureCoords[0][i].y;
 		}
+
+		vertices.push_back(vertex);
 	}
 
 	// Process the indices.
@@ -88,6 +90,12 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	}
 
+	std::cout
+		<< "Loaded mesh: " << std::endl
+		<< "+ Vertices count: " << vertices.size() << std::endl
+		<< "+ Indicies count: " << indicies.size() << std::endl
+		<< "+ Textures count: " << textures.size() << std::endl;
+
 	return Mesh(vertices, indicies, textures);
 }
 
@@ -103,7 +111,7 @@ std::vector<Texture> Model::LoadTextures(aiMaterial* material, aiTextureType tex
 		std::string textureFilePath = textureDirectory + "/" + string.C_Str();
 		const char* textureFilePathCStr = textureFilePath.c_str();
 
-		// Check if the texture is already loaded from file.
+		// Don't load the texture if it has already been loaded.
 		bool skip = false;
 		for (unsigned int j = 0; j < loadedTextures.size(); ++j)
 		{

@@ -28,4 +28,5 @@ public:
 
 	void Use();
 	inline std::string GetFilePath() { return filePath; }
+	inline TextureType GetTextureType() { return textureType; }
 };

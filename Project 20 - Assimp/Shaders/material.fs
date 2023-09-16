@@ -1,8 +1,8 @@
 #version 330 core
 struct Material
 {
-	sampler2D diffuse;
-	sampler2D specular;
+	sampler2D diffuse0;
+	sampler2D specular0;
 	float shininess;
 };
 
@@ -82,15 +82,15 @@ void main()
 
 vec3 CalculateDirectionalLight(DirectionalLight directionalLight, vec3 normal, vec3 viewDirection)
 {
-	vec3 ambient = directionalLight.ambient * vec3(texture(material.diffuse, textureCoordinates));
+	vec3 ambient = directionalLight.ambient * vec3(texture(material.diffuse0, textureCoordinates));
 	
 	vec3 lightDirection = normalize(-directionalLight.direction);
 	float diffusePercentage = max(dot(normal, lightDirection), 0.0f);
-	vec3 diffuse = directionalLight.diffuse * diffusePercentage * vec3(texture(material.diffuse, textureCoordinates)); 
+	vec3 diffuse = directionalLight.diffuse * diffusePercentage * vec3(texture(material.diffuse0, textureCoordinates)); 
 
 	vec3 reflectionDirection = reflect(-lightDirection, normal);
 	float specularPercentage = (pow(max(dot(viewDirection, reflectionDirection), 0.0), material.shininess));
-	vec3 specular = directionalLight.specular * specularPercentage * vec3(texture(material.specular, textureCoordinates));
+	vec3 specular = directionalLight.specular * specularPercentage * vec3(texture(material.specular0, textureCoordinates));
 
 	// Combine the lightning components together.
 	return ambient + diffuse + specular;
@@ -98,15 +98,15 @@ vec3 CalculateDirectionalLight(DirectionalLight directionalLight, vec3 normal, v
 
 vec3 CalculatePointLight(PointLight pointLight, vec3 normal, vec3 fragmentPosition, vec3 viewDirection)
 {
-	vec3 ambient = pointLight.ambient * vec3(texture(material.diffuse, textureCoordinates));
+	vec3 ambient = pointLight.ambient * vec3(texture(material.diffuse0, textureCoordinates));
 	
 	vec3 lightDirection = normalize(pointLight.position - fragmentPosition);
 	float diffusePercentage = max(dot(normal, lightDirection), 0.0f);
-	vec3 diffuse = pointLight.diffuse * diffusePercentage * vec3(texture(material.diffuse, textureCoordinates)); 
+	vec3 diffuse = pointLight.diffuse * diffusePercentage * vec3(texture(material.diffuse0, textureCoordinates)); 
 
 	vec3 reflectionDirection = reflect(-lightDirection, normal);
 	float specularPercentage = (pow(max(dot(viewDirection, reflectionDirection), 0.0), material.shininess));
-	vec3 specular = pointLight.specular * specularPercentage * vec3(texture(material.specular, textureCoordinates));
+	vec3 specular = pointLight.specular * specularPercentage * vec3(texture(material.specular0, textureCoordinates));
 
 	// Calculate the distance and attenuation.
 	float distance = length(pointLight.position - fragmentPosition);
@@ -122,15 +122,15 @@ vec3 CalculatePointLight(PointLight pointLight, vec3 normal, vec3 fragmentPositi
 
 vec3 CalculateSpotlight(Spotlight spotlight, vec3 normal, vec3 fragmentPosition, vec3 viewDirection)
 {
-	vec3 ambient = spotlight.ambient * vec3(texture(material.diffuse, textureCoordinates));
+	vec3 ambient = spotlight.ambient * vec3(texture(material.diffuse0, textureCoordinates));
 	
 	vec3 lightDirection = normalize(spotlight.position - fragmentPosition);
 	float diffusePercentage = max(dot(normal, lightDirection), 0.0f);
-	vec3 diffuse = spotlight.diffuse * diffusePercentage * vec3(texture(material.diffuse, textureCoordinates)); 
+	vec3 diffuse = spotlight.diffuse * diffusePercentage * vec3(texture(material.diffuse0, textureCoordinates)); 
 
 	vec3 reflectionDirection = reflect(-lightDirection, normal);
 	float specularPercentage = (pow(max(dot(viewDirection, reflectionDirection), 0.0), material.shininess));
-	vec3 specular = spotlight.specular * specularPercentage * vec3(texture(material.specular, textureCoordinates));
+	vec3 specular = spotlight.specular * specularPercentage * vec3(texture(material.specular0, textureCoordinates));
 
 	// Calculate the attenuation.
 	float distance = length(spotlight.position - fragmentPosition);	

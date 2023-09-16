@@ -25,6 +25,8 @@ private:
 
 private:
     Model model;
+    ModelMatrix modelMatrix;
+    glm::mat3 normalMatrix;
 
 private:
     Camera camera;
@@ -37,10 +39,9 @@ private:
     Shader cubeShader, lightShader;
 
 private:
-    void UpdateNormalMatrices();
+    void UpdateNormalMatrix();
 
 private:
-    void DrawLights();
     void DrawModel();
 
 public:

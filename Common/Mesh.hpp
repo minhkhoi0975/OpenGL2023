@@ -6,12 +6,13 @@
 
 #include "Vertex.hpp"
 #include "Texture.hpp"
+#include "Shader.hpp"
 
 #include <vector>
 
 class Mesh
 {
-private:
+public:
 	VertexArray vao;
 	VertexBuffer vbo;
 	ElementBuffer ebo;
@@ -23,4 +24,7 @@ public:
 
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indicies, std::vector<Texture> textures);
+
+public:
+	void Draw(Shader& shader);
 };
