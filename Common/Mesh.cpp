@@ -1,4 +1,5 @@
 #include "Mesh.hpp"
+#include <iostream>
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indicies, std::vector<Texture> textures)
 	: vertices(vertices), indicies(indicies), textures(textures)

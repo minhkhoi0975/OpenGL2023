@@ -11,21 +11,23 @@ enum class TextureType
 
 class Texture
 {
-private:
+public:
 	unsigned int id = -1;
 
-	int width;
-	int height;
-	int nrChannels;
-	unsigned char* data;
+	int width = 0;
+	int height = 0;
+	int nrChannels = 0;
+	unsigned char* data = nullptr;
 
-	std::string filePath;
-	TextureType textureType;
+	std::string filePath = "";
+	TextureType textureType = TextureType::Unknown;
 
 public:
-	Texture(const char* filePath, TextureType textureType = TextureType::Unknown, const int& imageFormat = GL_RGBA);
-	~Texture();
+	virtual ~Texture() = default;
+	Texture();
+	Texture(const char* filePath, TextureType textureType = TextureType::Unknown);
 
+	void Load(const char* filePath, TextureType textureType = TextureType::Unknown);
 	void Use();
 	inline std::string GetFilePath() { return filePath; }
 	inline TextureType GetTextureType() { return textureType; }

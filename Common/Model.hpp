@@ -31,4 +31,5 @@ public:
 
 public:
 	void LoadModel(const char* path);
+	void Draw(Shader& shader);
 };

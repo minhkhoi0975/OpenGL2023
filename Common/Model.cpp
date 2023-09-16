@@ -26,6 +26,12 @@ void Model::LoadModel(const char* path)
 	ProcessNode(scene->mRootNode, scene);
 }
 
+void Model::Draw(Shader& shader)
+{
+	for (unsigned int i = 0, ni = meshes.size(); i < ni; ++i)
+		meshes[i].Draw(shader);
+}
+
 void Model::ProcessNode(aiNode* node, const aiScene* scene)
 {
 	// Process the meshes of the node.
@@ -126,7 +132,9 @@ std::vector<Texture> Model::LoadTextures(aiMaterial* material, aiTextureType tex
 		// Texture needs to be loaded from file.
 		if (!skip)
 		{
-			Texture texture(textureFilePathCStr, GetTextureType(textureType));
+			//Texture texture(textureFilePathCStr, GetTextureType(textureType));
+			Texture texture;
+			texture.Load(textureFilePathCStr, GetTextureType(textureType));
 			textures.push_back(texture);
 			loadedTextures.push_back(texture);
 		}
