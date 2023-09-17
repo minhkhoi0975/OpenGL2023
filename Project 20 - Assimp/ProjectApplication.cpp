@@ -8,19 +8,20 @@
 ProjectApplication::ProjectApplication(const char* title, int windowWidth, int windowHeight) :
 	Application(title, windowWidth, windowHeight),
 	cubeShader("Shaders/material.vs", "Shaders/plain_texture.fs"),
-	lightShader("Shaders/light.vs", "Shaders/light.fs"),
-	camera(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f),
-	model("models/imc_grunt_anti_titan.obj")
+	camera(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f)
 {
-	// Set up the initial model matrices of the lights.
-	for (int i = 0; i < POINT_LIGHT_COUNT; ++i)
-		pointLightModelMatrices[i] = ModelMatrix(pointLightPositions[i]);
+	// Set the models.
+	models[0] = Model("models/backpack.obj");
+	models[1] = Model("models/flyguy.obj");
+	models[2] = Model("models/imc_grunt_anti_titan.obj");
 
 	// Set the model matrix.
-	modelMatrix = ModelMatrix();
+	modelMatrices[0] = ModelMatrix(glm::vec3(-5.0f, 0.0f, 0.0f));
+    modelMatrices[1] = ModelMatrix();
+	modelMatrices[2] = ModelMatrix(glm::vec3(5.0f, 0.0f, 0.0f));
 
 	// Set the normal matrix.
-	UpdateNormalMatrix();
+	UpdateNormalMatrices();
 
 	// Set the camera's position.
 	camera.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -36,32 +37,38 @@ void ProjectApplication::OnUpdate(const float& deltaTime)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Update the normal matrices.
-	UpdateNormalMatrix();
+	UpdateNormalMatrices();
 
 	// Update the camera's position.
 	UpdateCameraTransform(deltaTime);
 
-	DrawModel();
+	DrawModels();
 }
 
-void ProjectApplication::UpdateNormalMatrix()
+void ProjectApplication::UpdateNormalMatrices()
 {
-	normalMatrix = glm::mat3(transpose(glm::inverse(modelMatrix.GetModelMatrix())));
-}
-
-void ProjectApplication::DrawModel()
-{
-	cubeShader.Use();
-
-	cubeShader.SetUniformMatrix4("model", modelMatrix.GetModelMatrix());
-	cubeShader.SetUniformMatrix4("view", camera.GetViewMatrix());
-	cubeShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
-	cubeShader.SetUniformMatrix3("normalMatrix", normalMatrix);
-
-	for (int i = 0; i < model.meshes.size(); ++i)
+	for (int i = 0; i < 3; ++i)
 	{
-		// TODO: Draw each mesh.
-		model.meshes[i].Draw(cubeShader);
+		normalMatrices[i] = glm::mat3(transpose(glm::inverse(modelMatrices[i].GetModelMatrix())));
+	}
+}
+
+void ProjectApplication::DrawModels()
+{
+	for (int modelIndex = 0; modelIndex < MODEL_COUNT; ++modelIndex)
+	{
+		cubeShader.Use();
+
+		cubeShader.SetUniformMatrix4("model", modelMatrices[modelIndex].GetModelMatrix());
+		cubeShader.SetUniformMatrix4("view", camera.GetViewMatrix());
+		cubeShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
+		cubeShader.SetUniformMatrix3("normalMatrix", normalMatrices[modelIndex]);
+
+		for (int i = 0; i < models[modelIndex].meshes.size(); ++i)
+		{
+			// TODO: Draw each mesh.
+			models[modelIndex].meshes[i].Draw(cubeShader);
+		}
 	}
 }
 

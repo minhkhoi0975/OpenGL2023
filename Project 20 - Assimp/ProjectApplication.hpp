@@ -9,24 +9,15 @@
 #include "../Common/ModelMatrix.hpp"
 #include "../Common/Model.hpp"
 
+#define MODEL_COUNT 3
+
 // Should be duplicated and modified for each project in this solution.
 class ProjectApplication : public Application
 {
 private:
-    static const int POINT_LIGHT_COUNT = 4;
-    glm::vec3 pointLightPositions[POINT_LIGHT_COUNT] = 
-    {
-        glm::vec3(0.7f,  0.2f,  2.0f),
-        glm::vec3(2.3f, -3.3f, -4.0f),
-        glm::vec3(-4.0f,  2.0f, -12.0f),
-        glm::vec3(0.0f,  0.0f, -3.0f)
-    };
-    ModelMatrix pointLightModelMatrices[POINT_LIGHT_COUNT];
-
-private:
-    Model model;
-    ModelMatrix modelMatrix;
-    glm::mat3 normalMatrix;
+    Model models[MODEL_COUNT];
+    ModelMatrix modelMatrices[MODEL_COUNT];
+    glm::mat3 normalMatrices[MODEL_COUNT];
 
 private:
     Camera camera;
@@ -36,13 +27,13 @@ private:
     bool shouldRotateCamera = false;
 
 private:
-    Shader cubeShader, lightShader;
+    Shader cubeShader;
 
 private:
-    void UpdateNormalMatrix();
+    void UpdateNormalMatrices();
 
 private:
-    void DrawModel();
+    void DrawModels();
 
 public:
 	ProjectApplication(const char* title, int windowWidth, int windowHeight);
