@@ -18,6 +18,25 @@ class ProjectApplication : public Application
 private:
     bool showDemoWindow = true;
     bool showAnotherWindow = false;
+    bool wireFrameMode = false;
+    glm::vec3 modelPositions[MODEL_COUNT] = 
+    {
+        glm::vec3(-5.0f, 0.0f, 0.0f),
+        glm::vec3(),
+        glm::vec3(5.0f, 0.0f, 0.0f),
+    };
+    glm::vec3 modelRotations[MODEL_COUNT] = 
+    {
+        glm::vec3(),
+        glm::vec3(),
+        glm::vec3(),
+    };
+    glm::vec3 modelScales[MODEL_COUNT] = 
+    {
+        glm::vec3(1.0f, 1.0f, 1.0f),
+        glm::vec3(1.0f, 1.0f, 1.0f),
+        glm::vec3(1.0f, 1.0f, 1.0f),
+    };
 
 private:
     Model models[MODEL_COUNT];
@@ -32,12 +51,13 @@ private:
     bool shouldRotateCamera = false;
 
 private:
-    Shader cubeShader;
+    Shader plainTextureShader;
 
 private:
     void DrawImGuiWindows();
 
 private:
+    void UpdateModelMatrices();
     void UpdateNormalMatrices();
 
 private:

@@ -10,7 +10,7 @@
 
 ProjectApplication::ProjectApplication(const char* title, int windowWidth, int windowHeight) :
 	Application(title, windowWidth, windowHeight),
-	cubeShader("Shaders/material.vs", "Shaders/plain_texture.fs"),
+	plainTextureShader("Shaders/material.vs", "Shaders/plain_texture.fs"),
 	camera(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f)
 {
 	// Initialize ImGui.
@@ -33,12 +33,10 @@ ProjectApplication::ProjectApplication(const char* title, int windowWidth, int w
 	models[1] = Model("models/flyguy.obj");
 	models[2] = Model("models/imc_grunt_anti_titan.obj");
 
-	// Set the model matrix.
-	modelMatrices[0] = ModelMatrix(glm::vec3(-5.0f, 0.0f, 0.0f));
-    modelMatrices[1] = ModelMatrix();
-	modelMatrices[2] = ModelMatrix(glm::vec3(5.0f, 0.0f, 0.0f));
+	// Set the model matrices.
+	UpdateModelMatrices();
 
-	// Set the normal matrix.
+	// Set the normal matrices.
 	UpdateNormalMatrices();
 
 	// Set the camera's position.
@@ -54,12 +52,13 @@ void ProjectApplication::OnUpdate(const float& deltaTime)
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// Start a new ImGui frame.
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
+	if (wireFrameMode)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	// Update the normal matrices.
+	// Update models' matrices.
+	UpdateModelMatrices();
 	UpdateNormalMatrices();
 
 	// Update the camera's position.
@@ -80,21 +79,58 @@ void ProjectApplication::OnShutdown()
 
 void ProjectApplication::DrawImGuiWindows()
 {
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
 	if (showDemoWindow)
 		ImGui::ShowDemoWindow(&showDemoWindow);
 
-	ImGui::Begin("Hello World!");
-	ImGui::Text("This is some useful text.");
-	ImGui::Checkbox("Demo Window", &showDemoWindow);
+	ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
+	ImGui::Begin("Settings", nullptr);
+	ImGui::Checkbox("Wireframe Mode", &wireFrameMode);
+
+	for (int i = 0; i < MODEL_COUNT; ++i)
+	{
+		std::string modelLabel = "Model ";
+		modelLabel += std::to_string(i);
+		ImGui::Text(modelLabel.c_str());
+
+		std::string positionVariableName = "Position##Model ";
+		positionVariableName += std::to_string(i);
+		ImGui::InputFloat3(positionVariableName.c_str(), &modelPositions[i].x);
+
+		std::string rotationVariableName = "Rotation##Model ";
+		rotationVariableName += std::to_string(i);
+		ImGui::DragFloat3(rotationVariableName.c_str(), &modelRotations[i].x, 1.0f, -180.0f, 180.0f, "%.3f");
+	}
+
 	ImGui::End();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
+void ProjectApplication::UpdateModelMatrices()
+{
+	for (int i = 0; i < MODEL_COUNT; ++i)
+	{
+		// Set position.
+		modelMatrices[i].SetPosition(modelPositions[i]);
+
+		// Set rotation.
+		glm::quat modelRotationInDegrees = glm::quat(glm::vec3(
+			glm::radians(modelRotations[i].x),
+			glm::radians(modelRotations[i].y),
+			glm::radians(modelRotations[i].z)));
+
+		modelMatrices[i].SetRotation(modelRotationInDegrees);
+	}
+}
+
 void ProjectApplication::UpdateNormalMatrices()
 {
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < MODEL_COUNT; ++i)
 	{
 		normalMatrices[i] = glm::mat3(transpose(glm::inverse(modelMatrices[i].GetModelMatrix())));
 	}
@@ -104,17 +140,17 @@ void ProjectApplication::DrawModels()
 {
 	for (int modelIndex = 0; modelIndex < MODEL_COUNT; ++modelIndex)
 	{
-		cubeShader.Use();
+		plainTextureShader.Use();
 
-		cubeShader.SetUniformMatrix4("model", modelMatrices[modelIndex].GetModelMatrix());
-		cubeShader.SetUniformMatrix4("view", camera.GetViewMatrix());
-		cubeShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
-		cubeShader.SetUniformMatrix3("normalMatrix", normalMatrices[modelIndex]);
+		plainTextureShader.SetUniformMatrix4("model", modelMatrices[modelIndex].GetModelMatrix());
+		plainTextureShader.SetUniformMatrix4("view", camera.GetViewMatrix());
+		plainTextureShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
+		plainTextureShader.SetUniformMatrix3("normalMatrix", normalMatrices[modelIndex]);
 
 		for (int i = 0; i < models[modelIndex].meshes.size(); ++i)
 		{
 			// TODO: Draw each mesh.
-			models[modelIndex].meshes[i].Draw(cubeShader);
+			models[modelIndex].meshes[i].Draw(plainTextureShader);
 		}
 	}
 }
