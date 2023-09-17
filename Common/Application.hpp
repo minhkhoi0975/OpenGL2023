@@ -1,6 +1,6 @@
 #pragma once
 
-class GLFWwindow;
+struct GLFWwindow;
 
 class Application
 {
@@ -20,6 +20,8 @@ private:
 public:
 	Application(const char* title, int windowWidth, int windowHeight);
 	~Application();
+
+	inline GLFWwindow* GetWindow() const { return window; }
 
 	void RunLoop();
 	virtual void OnUpdate(const float& deltaTime) {}

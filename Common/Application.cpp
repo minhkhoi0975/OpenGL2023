@@ -90,6 +90,9 @@ void Application::RunLoop()
 {
 	while (!glfwWindowShouldClose(window))
 	{
+		// Poll and process events.
+		glfwPollEvents();
+
 		// Update the time between frames.
 		float time = glfwGetTime();
 		deltaTime = time - latestFrameTime;
@@ -107,9 +110,6 @@ void Application::RunLoop()
 
 		// Swap front and back buffers.
 		glfwSwapBuffers(window);
-
-		// Poll and process events.
-		glfwPollEvents();
 	}
 }
 
