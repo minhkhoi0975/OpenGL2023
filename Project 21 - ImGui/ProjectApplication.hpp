@@ -47,6 +47,7 @@ public:
 	ProjectApplication(const char* title, int windowWidth, int windowHeight);
 
 	void OnUpdate(const float& deltaTime) override;
+    void OnShutdown() override;
 
 public:
     void UpdateCameraTransform(const float& deltaTime);

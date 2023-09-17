@@ -25,6 +25,9 @@ ProjectApplication::ProjectApplication(const char* title, int windowWidth, int w
 	ImGui_ImplGlfw_InitForOpenGL(GetWindow(), true);
 	ImGui_ImplOpenGL3_Init("#version 150");
 
+	ImFont* font = io.Fonts->AddFontFromFileTTF("Fonts/DroidSans.ttf", 32.0f);
+	IM_ASSERT(font != nullptr);
+
 	// Set the models.
 	models[0] = Model("models/backpack.obj");
 	models[1] = Model("models/flyguy.obj");
@@ -65,6 +68,14 @@ void ProjectApplication::OnUpdate(const float& deltaTime)
 	DrawModels();
 
 	DrawImGuiWindows();
+}
+
+void ProjectApplication::OnShutdown()
+{
+	// Shutdown ImGui.
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 }
 
 void ProjectApplication::DrawImGuiWindows()
