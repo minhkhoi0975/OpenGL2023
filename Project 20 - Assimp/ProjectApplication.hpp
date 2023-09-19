@@ -9,7 +9,7 @@
 #include "../Common/ModelMatrix.hpp"
 #include "../Common/Model.hpp"
 
-#define MODEL_COUNT 3
+#define MODEL_COUNT 2
 
 // Should be duplicated and modified for each project in this solution.
 class ProjectApplication : public Application

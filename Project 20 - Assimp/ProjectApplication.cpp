@@ -13,12 +13,10 @@ ProjectApplication::ProjectApplication(const char* title, int windowWidth, int w
 	// Set the models.
 	models[0] = Model("models/backpack.obj");
 	models[1] = Model("models/flyguy.obj");
-	models[2] = Model("models/imc_grunt_anti_titan.obj");
 
 	// Set the model matrix.
 	modelMatrices[0] = ModelMatrix(glm::vec3(-5.0f, 0.0f, 0.0f));
     modelMatrices[1] = ModelMatrix();
-	modelMatrices[2] = ModelMatrix(glm::vec3(5.0f, 0.0f, 0.0f));
 
 	// Set the normal matrix.
 	UpdateNormalMatrices();
@@ -47,7 +45,7 @@ void ProjectApplication::OnUpdate(const float& deltaTime)
 
 void ProjectApplication::UpdateNormalMatrices()
 {
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < MODEL_COUNT; ++i)
 	{
 		normalMatrices[i] = glm::mat3(transpose(glm::inverse(modelMatrices[i].GetModelMatrix())));
 	}

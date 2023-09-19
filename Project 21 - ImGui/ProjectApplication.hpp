@@ -8,8 +8,9 @@
 #include "../Common/Camera.hpp"
 #include "../Common/ModelMatrix.hpp"
 #include "../Common/Model.hpp"
+#include "../Common/DirectionalLight.hpp"
 
-#define MODEL_COUNT 3
+#define MODEL_COUNT 2
 
 // Should be duplicated and modified for each project in this solution.
 class ProjectApplication : public Application
@@ -22,12 +23,10 @@ private:
     glm::vec3 modelPositions[MODEL_COUNT] = 
     {
         glm::vec3(-5.0f, 0.0f, 0.0f),
-        glm::vec3(),
         glm::vec3(5.0f, 0.0f, 0.0f),
     };
     glm::vec3 modelRotations[MODEL_COUNT] = 
     {
-        glm::vec3(),
         glm::vec3(),
         glm::vec3(),
     };
@@ -35,13 +34,17 @@ private:
     {
         glm::vec3(1.0f, 1.0f, 1.0f),
         glm::vec3(1.0f, 1.0f, 1.0f),
-        glm::vec3(1.0f, 1.0f, 1.0f),
     };
+    glm::vec3 directionalLightRotation;
+
+private:
+    DirectionalLight directionalLight;
 
 private:
     Model models[MODEL_COUNT];
     ModelMatrix modelMatrices[MODEL_COUNT];
     glm::mat3 normalMatrices[MODEL_COUNT];
+    Shader modelShader;
 
 private:
     Camera camera;
@@ -49,9 +52,6 @@ private:
 
     glm::vec2 cameraMoveInput = glm::vec2();
     bool shouldRotateCamera = false;
-
-private:
-    Shader plainTextureShader;
 
 private:
     void DrawImGuiWindows();

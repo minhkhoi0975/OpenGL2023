@@ -1,0 +1,46 @@
+# Blender 3.6.2 MTL File: 'imc_grunt_anti_titan.blend'
+# www.blender.org
+
+newmtl grt_imc_at_body_lower_urb
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_body_lower_urb_col.png
+map_Ks C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_body_lower_urb_spc.png
+map_Bump -bm 1.000000 C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_body_lower_urb_nml.png
+
+newmtl grt_imc_at_body_upper_urb
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_body_upper_urb_col.png
+map_Ks C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_body_upper_urb_spc.png
+map_Bump -bm 1.000000 C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_body_upper_urb_nml.png
+
+newmtl grt_imc_at_gear_urb
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_gear_urb_col.png
+map_Ks C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_gear_urb_spc.png
+map_Ke C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_gear_urb_ilm.png
+map_Bump -bm 1.000000 C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_gear_urb_nml.png
+
+newmtl grt_imc_at_head_urb
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_head_urb_col.png
+map_Ks C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_head_urb_spc.png
+map_Ke C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_head_urb_ilm.png
+map_Bump -bm 1.000000 C:/Program Files/EA Games/Titanfall/Modding/Unpacked VPK/materials/models/humans/imc_grunt/anti_titan/grt_imc_at_head_urb_nml.png

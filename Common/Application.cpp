@@ -24,6 +24,8 @@ Application::Application(const char* title, int windowWidth, int windowHeight)
 		std::cerr << "Error: Cannot create a window." << std::endl;
 		std::exit(EXIT_FAILURE);
 	}
+	this->windowWidth = windowWidth;
+	this->windowHeight = windowHeight;
 	glfwMakeContextCurrent(window);
 	glfwSetWindowUserPointer(window, this);
 

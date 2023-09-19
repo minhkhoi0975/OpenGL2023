@@ -169,10 +169,13 @@
   <ItemGroup>
     <ClInclude Include="..\Common\Application.hpp" />
     <ClInclude Include="..\Common\Camera.hpp" />
+    <ClInclude Include="..\Common\DirectionalLight.hpp" />
     <ClInclude Include="..\Common\ElementBuffer.hpp" />
     <ClInclude Include="..\Common\Mesh.hpp" />
     <ClInclude Include="..\Common\Model.hpp" />
+    <ClInclude Include="..\Common\PointLight.hpp" />
     <ClInclude Include="..\Common\Shader.hpp" />
+    <ClInclude Include="..\Common\SpotLight.hpp" />
     <ClInclude Include="..\Common\Texture.hpp" />
     <ClInclude Include="..\Common\ModelMatrix.hpp" />
     <ClInclude Include="..\Common\Vertex.hpp" />

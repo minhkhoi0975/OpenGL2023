@@ -10,7 +10,7 @@
 
 ProjectApplication::ProjectApplication(const char* title, int windowWidth, int windowHeight) :
 	Application(title, windowWidth, windowHeight),
-	plainTextureShader("Shaders/material.vs", "Shaders/plain_texture.fs"),
+	modelShader("Shaders/material.vs", "Shaders/plain_texture.fs"),
 	camera(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f)
 {
 	// Initialize ImGui.
@@ -28,10 +28,15 @@ ProjectApplication::ProjectApplication(const char* title, int windowWidth, int w
 	ImFont* font = io.Fonts->AddFontFromFileTTF("Fonts/DroidSans.ttf", 32.0f);
 	IM_ASSERT(font != nullptr);
 
+	// Initialize the light.
+	directionalLight.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
+	directionalLight.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+	directionalLight.diffuse = glm::vec3(0.5f, 0.5f, 0.5f);
+	directionalLight.specular = glm::vec3(0.5f, 0.5f, 0.5f);
+
 	// Set the models.
 	models[0] = Model("models/backpack.obj");
 	models[1] = Model("models/flyguy.obj");
-	models[2] = Model("models/imc_grunt_anti_titan.obj");
 
 	// Set the model matrices.
 	UpdateModelMatrices();
@@ -98,12 +103,23 @@ void ProjectApplication::DrawImGuiWindows()
 
 		std::string positionVariableName = "Position##Model ";
 		positionVariableName += std::to_string(i);
-		ImGui::InputFloat3(positionVariableName.c_str(), &modelPositions[i].x);
+		ImGui::DragFloat3(positionVariableName.c_str(), &modelPositions[i].x, 0.1f);
 
 		std::string rotationVariableName = "Rotation##Model ";
 		rotationVariableName += std::to_string(i);
 		ImGui::DragFloat3(rotationVariableName.c_str(), &modelRotations[i].x, 1.0f, -180.0f, 180.0f, "%.3f");
+
+		std::string scaleVariableName = "Scale##Model ";
+		scaleVariableName += std::to_string(i);
+		ImGui::DragFloat3(scaleVariableName.c_str(), &modelScales[i].x, 0.1f);
 	}
+
+	ImGui::Text("Directional Light Settings");
+	ImGui::DragFloat3("Rotation##DirectionalLight", &directionalLightRotation.x, 1.0f, -180.0f, 180.0f, "%.3f");
+	directionalLight.direction = glm::quat(glm::vec3(glm::radians(directionalLightRotation.x), glm::radians(directionalLightRotation.y), glm::radians(directionalLightRotation.z))) * glm::vec3(0.0f, 0.0f, 1.0f);
+	ImGui::DragFloat3("Ambient##DirectionalLight", &directionalLight.ambient.x, 0.1f);
+	ImGui::DragFloat3("Diffuse##DirectionalLight", &directionalLight.diffuse.x, 0.1f);
+	ImGui::DragFloat3("Specular##DirectionalLight", &directionalLight.specular.x, 0.1f);
 
 	ImGui::End();
 
@@ -125,6 +141,9 @@ void ProjectApplication::UpdateModelMatrices()
 			glm::radians(modelRotations[i].z)));
 
 		modelMatrices[i].SetRotation(modelRotationInDegrees);
+
+		// Set scale.
+		modelMatrices[i].SetScale(modelScales[i]);
 	}
 }
 
@@ -140,17 +159,25 @@ void ProjectApplication::DrawModels()
 {
 	for (int modelIndex = 0; modelIndex < MODEL_COUNT; ++modelIndex)
 	{
-		plainTextureShader.Use();
+		modelShader.Use();
 
-		plainTextureShader.SetUniformMatrix4("model", modelMatrices[modelIndex].GetModelMatrix());
-		plainTextureShader.SetUniformMatrix4("view", camera.GetViewMatrix());
-		plainTextureShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
-		plainTextureShader.SetUniformMatrix3("normalMatrix", normalMatrices[modelIndex]);
+		// Set values for vertex shader.
+		modelShader.SetUniformMatrix4("model", modelMatrices[modelIndex].GetModelMatrix());
+		modelShader.SetUniformMatrix4("view", camera.GetViewMatrix());
+		modelShader.SetUniformMatrix4("projection", camera.GetProjectionMatrix());
+		modelShader.SetUniformMatrix3("normalMatrix", normalMatrices[modelIndex]);
+
+		// Set values for fragment shader.
+		modelShader.SetUniformVector3("directionalLight.ambient", directionalLight.ambient);
+		modelShader.SetUniformVector3("directionalLight.diffuse", directionalLight.diffuse);
+		modelShader.SetUniformVector3("directionalLight.specular", directionalLight.specular);
+		modelShader.SetUniformVector3("directionalLight.direction", directionalLight.direction);
+		modelShader.SetUniformVector3("viewPosition", camera.GetPosition());
 
 		for (int i = 0; i < models[modelIndex].meshes.size(); ++i)
 		{
 			// TODO: Draw each mesh.
-			models[modelIndex].meshes[i].Draw(plainTextureShader);
+			models[modelIndex].meshes[i].Draw(modelShader);
 		}
 	}
 }

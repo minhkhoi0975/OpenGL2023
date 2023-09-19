@@ -13,7 +13,7 @@ void Model::LoadModel(const char* path)
 {
 	// Load model from file.
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate /* | aiProcess_FlipUVs*/);
+	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals /* | aiProcess_FlipUVs*/);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cerr << "Error: Cannot load model from " << path << std::endl;

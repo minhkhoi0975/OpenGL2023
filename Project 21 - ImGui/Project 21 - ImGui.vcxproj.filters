@@ -141,6 +141,15 @@
     <ClInclude Include="..\dependencies\ImGui\misc\cpp\imgui_stdlib.h">
       <Filter>ImGui\misc\cpp</Filter>
     </ClInclude>
+    <ClInclude Include="..\Common\DirectionalLight.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\PointLight.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\SpotLight.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

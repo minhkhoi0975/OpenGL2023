@@ -5,7 +5,9 @@ struct GLFWwindow;
 class Application
 {
 private:
-	GLFWwindow* window;
+	int windowWidth = 0;
+	int windowHeight = 0;
+	GLFWwindow* window = nullptr;
 
 private:
 	float latestFrameTime = 0.0f;
@@ -22,6 +24,8 @@ public:
 	~Application();
 
 	inline GLFWwindow* GetWindow() const { return window; }
+	inline int GetWindowWidth() const { return windowWidth; }
+	inline int GetWindowHeight() const { return windowHeight; }
 
 	void RunLoop();
 	virtual void OnUpdate(const float& deltaTime) {}
