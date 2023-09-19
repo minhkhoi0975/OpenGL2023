@@ -5,5 +5,7 @@ Requires Visual Studio 2022.
 
 Note: The IMC grunt model is removed from the project to avoid copyright infringement.
 
+Demo video: https://www.youtube.com/watch?v=heNe23ehuro
+
 ![front_view](Images/OpenGL_Screenshot_front.png)
 ![front_view](Images/OpenGL_Screenshot_back.png)
