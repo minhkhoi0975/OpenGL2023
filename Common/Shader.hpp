@@ -11,15 +11,10 @@ public:
 	Shader(const char* vertexShaderFilePath, const char* fragmentShaderFilePath);
 	~Shader();
 
-	/// <summary>
-	/// Returns the ID of the shader.
-	/// </summary>
 	unsigned int GetId() const;
 
-	/// <summary>
-	/// Makes OpenGL uses this shader program.
-	/// </summary>
 	void Use() const;
+	void Unuse() const;
 
 	void SetUniformInt(const char* name, const int& value);
 	void SetUniformFloat(const char* name, const float& value);

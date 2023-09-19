@@ -1,5 +1,4 @@
 #include "VertexBuffer.hpp"
-#include <glad/glad.h>
 
 VertexBuffer::VertexBuffer()
 {
@@ -11,10 +10,10 @@ VertexBuffer::~VertexBuffer()
 	glDeleteBuffers(1, &id);
 }
 
-void VertexBuffer::SetData(const void* data, int size)
+void VertexBuffer::SetData(const void* data, int size, int usage)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, id);
-	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, size, data, usage);
 }
 
 void VertexBuffer::Use()
