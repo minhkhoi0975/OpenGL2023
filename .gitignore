@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # Don't ignore any files in the Assimp folder
 !dependencies/Assimp/**
+
+# Don't ignore 3D model files that use .obj format
+!**/Models/**/*.obj
