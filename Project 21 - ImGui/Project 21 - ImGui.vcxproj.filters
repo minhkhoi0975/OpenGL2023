@@ -170,5 +170,73 @@
     <Filter Include="ImGui\misc\cpp">
       <UniqueIdentifier>{62b9a5b2-b9e5-4388-98e8-305a200c45ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{2ed0f33b-b172-4da3-a1ec-40ac13fbe6e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{5caf36d8-d44b-4219-8408-1ee165c4253f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Models\ao.jpg">
+      <Filter>Models</Filter>
+    </Image>
+    <Image Include="Models\diffuse.jpg">
+      <Filter>Models</Filter>
+    </Image>
+    <Image Include="Models\flyguy_final_1001_BaseMap.png">
+      <Filter>Models</Filter>
+    </Image>
+    <Image Include="Models\normal.png">
+      <Filter>Models</Filter>
+    </Image>
+    <Image Include="Models\roughness.jpg">
+      <Filter>Models</Filter>
+    </Image>
+    <Image Include="Models\specular.jpg">
+      <Filter>Models</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\backpack.mtl">
+      <Filter>Models</Filter>
+    </None>
+    <None Include="Models\flyguy.mtl">
+      <Filter>Models</Filter>
+    </None>
+    <None Include="Shaders\directional_light.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\light.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\light.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\material.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\material.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\plain_color.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\plain_texture.fs">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Models\source_attribution.txt">
+      <Filter>Models</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Models\backpack.obj">
+      <Filter>Models</Filter>
+    </Resource>
+    <Resource Include="Models\flyguy.obj">
+      <Filter>Models</Filter>
+    </Resource>
   </ItemGroup>
 </Project>

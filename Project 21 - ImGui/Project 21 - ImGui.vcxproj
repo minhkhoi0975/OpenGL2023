@@ -74,10 +74,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)Dependencies\ImGui\backends;$(SolutionDir)Dependencies\ImGui;$(SolutionDir)Dependencies\Assimp\include;$(SolutionDir)Dependencies\stb\include;$(SolutionDir)Dependencies\glm\include;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies\Assimp\lib\x64;$(SolutionDir)dependencies\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)Dependencies\ImGui\backends;$(SolutionDir)Dependencies\ImGui;$(SolutionDir)Dependencies\Assimp\include;$(SolutionDir)Dependencies\stb\include;$(SolutionDir)Dependencies\glm\include;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies\Assimp\lib\x64;$(SolutionDir)dependencies\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -193,6 +195,74 @@
     <ClInclude Include="..\dependencies\ImGui\imstb_truetype.h" />
     <ClInclude Include="..\dependencies\ImGui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="ProjectApplication.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Models\ao.jpg">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Models\diffuse.jpg">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Models\flyguy_final_1001_BaseMap.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Models\normal.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Models\roughness.jpg">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Models\specular.jpg">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\backpack.mtl">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Models\flyguy.mtl">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Shaders\directional_light.fs">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Shaders\light.fs">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Shaders\light.vs">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Shaders\material.fs">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Shaders\material.vs">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Shaders\plain_color.fs">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Shaders\plain_texture.fs">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Models\backpack.obj">
+      <FileType>Text</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <DeploymentContent>true</DeploymentContent>
+    </Resource>
+    <Resource Include="Models\flyguy.obj">
+      <DeploymentContent>true</DeploymentContent>
+      <FileType>Text</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Models\source_attribution.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

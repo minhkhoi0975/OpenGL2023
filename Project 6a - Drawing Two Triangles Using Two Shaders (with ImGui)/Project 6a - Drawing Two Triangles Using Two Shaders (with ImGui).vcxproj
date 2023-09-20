@@ -74,10 +74,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)Dependencies\ImGui\backends;$(SolutionDir)Dependencies\ImGui;$(SolutionDir)Dependencies\Assimp\include;$(SolutionDir)Dependencies\stb\include;$(SolutionDir)Dependencies\glm\include;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies\Assimp\lib\x64;$(SolutionDir)dependencies\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)Dependencies\ImGui\backends;$(SolutionDir)Dependencies\ImGui;$(SolutionDir)Dependencies\Assimp\include;$(SolutionDir)Dependencies\stb\include;$(SolutionDir)Dependencies\glm\include;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies\Assimp\lib\x64;$(SolutionDir)dependencies\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -195,6 +197,34 @@
     <ClInclude Include="..\dependencies\ImGui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="ProjectApplication.hpp" />
     <ClInclude Include="RenderingSettings.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\triangle.fs">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Shaders\triangle.vs">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\Cousine-Regular.ttf">
+      <DeploymentContent>true</DeploymentContent>
+    </Font>
+    <Font Include="Fonts\DroidSans.ttf">
+      <DeploymentContent>true</DeploymentContent>
+    </Font>
+    <Font Include="Fonts\Karla-Regular.ttf">
+      <DeploymentContent>true</DeploymentContent>
+    </Font>
+    <Font Include="Fonts\ProggyClean.ttf">
+      <DeploymentContent>true</DeploymentContent>
+    </Font>
+    <Font Include="Fonts\ProggyTiny.ttf">
+      <DeploymentContent>true</DeploymentContent>
+    </Font>
+    <Font Include="Fonts\Roboto-Medium.ttf">
+      <DeploymentContent>true</DeploymentContent>
+    </Font>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
