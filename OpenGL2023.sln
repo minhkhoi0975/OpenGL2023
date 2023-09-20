@@ -49,6 +49,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Playground - ImGui", "Playg
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project03a - Drawing a Triangle (with ImGui)", "Project 3a - Drawing a Triangle (with ImGui)\Project 3a - Drawing a Triangle (with ImGui).vcxproj", "{CBA5F9D3-E748-4128-98F6-122195122A30}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project06a - Drawing Two Triangles Using Two Shaders (with ImGui)", "Project 6a - Drawing Two Triangles Using Two Shaders (with ImGui)\Project 6a - Drawing Two Triangles Using Two Shaders (with ImGui).vcxproj", "{33BB5DB7-FB58-4ED4-A572-AED00339089A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -241,6 +243,14 @@ Global
 		{CBA5F9D3-E748-4128-98F6-122195122A30}.Release|x64.Build.0 = Release|x64
 		{CBA5F9D3-E748-4128-98F6-122195122A30}.Release|x86.ActiveCfg = Release|Win32
 		{CBA5F9D3-E748-4128-98F6-122195122A30}.Release|x86.Build.0 = Release|Win32
+		{33BB5DB7-FB58-4ED4-A572-AED00339089A}.Debug|x64.ActiveCfg = Debug|x64
+		{33BB5DB7-FB58-4ED4-A572-AED00339089A}.Debug|x64.Build.0 = Debug|x64
+		{33BB5DB7-FB58-4ED4-A572-AED00339089A}.Debug|x86.ActiveCfg = Debug|Win32
+		{33BB5DB7-FB58-4ED4-A572-AED00339089A}.Debug|x86.Build.0 = Debug|Win32
+		{33BB5DB7-FB58-4ED4-A572-AED00339089A}.Release|x64.ActiveCfg = Release|x64
+		{33BB5DB7-FB58-4ED4-A572-AED00339089A}.Release|x64.Build.0 = Release|x64
+		{33BB5DB7-FB58-4ED4-A572-AED00339089A}.Release|x86.ActiveCfg = Release|Win32
+		{33BB5DB7-FB58-4ED4-A572-AED00339089A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
