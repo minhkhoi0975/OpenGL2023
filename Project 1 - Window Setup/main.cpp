@@ -3,22 +3,17 @@
 
 int main(char** argv, int argc)
 {
-	GLFWwindow* window = nullptr;
-
 	// Initialize GLFW.
 	if (!glfwInit())
 		std::exit(-1);
 
 	// Create a window.
-	window = glfwCreateWindow(640, 480, "Hello World!", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World!", nullptr, nullptr);
 	if (!window)
 	{
 		glfwTerminate();
 		std::exit(-1);
 	}
-
-	// Make the window's context current for OpenGL.
-	glfwMakeContextCurrent(window);
 
 	// Loop until the user closes the window.
 	while (!glfwWindowShouldClose(window))
